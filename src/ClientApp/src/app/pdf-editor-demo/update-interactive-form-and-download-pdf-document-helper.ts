@@ -33,7 +33,7 @@ export class UpdateInteractiveFormAndDownloadPdfDocumentHelper {
     let element: Vintasoft.Imaging.UI.UIElements.WebUiButtonJS = new Vintasoft.Imaging.UI.UIElements.WebUiButtonJS({
       cssClass: "vsui-downloadImageFileButton",
       title: "Download image file",
-      localizationId: "downloadImageButton",
+      localizationId: "downloadFileButton",
       onClick: _updateInteractiveFormAndDownloadPdfDocumentHelper.__downloadImageFileButton_clicked
     });
     return element;

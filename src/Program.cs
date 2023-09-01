@@ -1,22 +1,22 @@
-// register the evaluation license for VintaSoft Imaging .NET SDK
+﻿// register the evaluation license for VintaSoft Imaging .NET SDK
 Vintasoft.Imaging.ImagingGlobalSettings.Register("REG_USER", "REG_EMAIL", "EXPIRATION_DATE", "REG_CODE");
 
 var builder = WebApplication.CreateBuilder(args);
 
-// set the custom font program controller as the default font program controller
-AspNetCoreAngularPdfEditorDemo.CustomFontProgramsController.SetDefaultFontProgramsController();
+            // set the custom font program controller as the default font program controller
+            AspNetCoreAngularPdfEditorDemo.CustomFontProgramsController.SetDefaultFontProgramsController();
 
-// specify that VintaSoft Imaging .NET SDK should use SkiaSharp library for drawing of 2D graphics
-Vintasoft.Imaging.Drawing.SkiaSharp.SkiaSharpDrawingFactory.SetAsDefault();
+            // specify that VintaSoft Imaging .NET SDK should use SkiaSharp library for drawing of 2D graphics
+            Vintasoft.Imaging.Drawing.SkiaSharp.SkiaSharpDrawingFactory.SetAsDefault();
 
 // Add services to the container.
 
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 
@@ -32,7 +32,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseSession();
+            app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",

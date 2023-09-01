@@ -306,7 +306,7 @@ export class PdfEditorDemoComponent {
     // register the "Previously uploaded files" button in web UI elements factory
     Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("previousUploadFilesButton", this.__createPreviousUploadFilesButton);
     // override the "Download image" button in web UI elements factory
-    Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("downloadImageButton", updateInteractiveFormAndDownloadPdfDocumentHelper.createDownloadPdfFileWithFilledFieldsButton);
+    Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("downloadFileButton", updateInteractiveFormAndDownloadPdfDocumentHelper.createDownloadPdfFileWithFilledFieldsButton);
     // override the "Print images" button in web UI elements factory
     Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("printImagesButton", printImagesHelper.createPrintImagesButton);
 
