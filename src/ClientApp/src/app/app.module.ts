@@ -10,9 +10,6 @@ import { AppComponent } from './app.component';
 import { PdfEditorDemoComponent } from './pdf-editor-demo/pdf-editor-demo';
 import { DocumentPasswordDialog, DocumentPasswordDialogContent } from './dialogs/document-password-dialog';
 import { PreviouslyUploadedFilesDialog, PreviouslyUploadedFilesDialogContent } from './dialogs/previously-uploaded-files-dialog';
-import { PrintImagesDialog, PrintImagesDialogContent } from './dialogs/print-images-dialog';
-import { ImageViewerSettingsDialog, ImageViewerSettingsDialogContent } from './dialogs/image-viewer-settings-dialog';
-import { ThumbnailViewerSettingsDialog, ThumbnailViewerSettingsDialogContent } from './dialogs/thumbnail-viewer-settings-dialog';
 import { BlockUiDialog, BlockUiDialogContent } from './dialogs/block-ui-dialog';
 import { PdfInteractiveFieldDialog, PdfInteractiveFieldDialogContent } from './dialogs/pdf-interactive-field-dialog';
 import { ErrorMessageDialog, ErrorMessageDialogContent } from './dialogs/error-message-dialog';
@@ -29,12 +26,6 @@ import { PdfRedactionMarkAppearanceDialog, PdfRedactionMarkAppearanceDialogConte
     DocumentPasswordDialogContent,
     PreviouslyUploadedFilesDialog,
     PreviouslyUploadedFilesDialogContent,
-    PrintImagesDialog,
-    PrintImagesDialogContent,
-    ImageViewerSettingsDialog,
-    ImageViewerSettingsDialogContent,
-    ThumbnailViewerSettingsDialog,
-    ThumbnailViewerSettingsDialogContent,
     PdfInteractiveFieldDialog,
     PdfInteractiveFieldDialogContent,
     BlockUiDialog,
@@ -55,12 +46,6 @@ import { PdfRedactionMarkAppearanceDialog, PdfRedactionMarkAppearanceDialogConte
     DocumentPasswordDialogContent,
     PreviouslyUploadedFilesDialog,
     PreviouslyUploadedFilesDialogContent,
-    PrintImagesDialog,
-    PrintImagesDialogContent,
-    ImageViewerSettingsDialog,
-    ImageViewerSettingsDialogContent,
-    ThumbnailViewerSettingsDialog,
-    ThumbnailViewerSettingsDialogContent,
     PdfInteractiveFieldDialog,
     PdfInteractiveFieldDialogContent,
     BlockUiDialog,

@@ -3,8 +3,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { BlockUiDialog } from "../dialogs/block-ui-dialog";
 import { PreviouslyUploadedFilesDialog } from '../dialogs/previously-uploaded-files-dialog';
-import { ImageViewerSettingsDialog } from '../dialogs/image-viewer-settings-dialog';
-import { ThumbnailViewerSettingsDialog } from '../dialogs/thumbnail-viewer-settings-dialog';
 import { ErrorMessageDialog } from '../dialogs/error-message-dialog';
 import { PdfInteractiveFieldDialog } from '../dialogs/pdf-interactive-field-dialog';
 import { PdfRedactionMarkSettingsDialog } from '../dialogs/pdf-redaction-mark-settings-dialog';
@@ -12,7 +10,6 @@ import { PdfImageResourceDialog } from '../dialogs/pdf-image-resource-dialog';
 import { ImageSelectionDialog } from '../dialogs/image-selection-dialog';
 import { PdfRedactionMarkAppearanceDialog } from '../dialogs/pdf-redaction-mark-appearance-dialog';
 import { OpenPdfFileHelper } from './open-pdf-file-helper';
-import { PrintImagesHelper } from './print-images-helper';
 import { UpdateInteractiveFormAndDownloadPdfDocumentHelper } from './update-interactive-form-and-download-pdf-document-helper';
 import { WebUriActionExecutor } from './web-uri-action-executor';
 
@@ -31,9 +28,6 @@ export class PdfEditorDemoComponent {
 
   // Helps to open PDF file.
   _openPdfFileHelper: OpenPdfFileHelper | null = null;
-
-  // Dialog that allows to view and change settings of image viewer.
-  _imageViewerSettingsDialog: ImageViewerSettingsDialog | null = null;
 
   // Dialog that allows to block UI.
   _blockUiDialog: BlockUiDialog | null = null;
@@ -158,69 +152,6 @@ export class PdfEditorDemoComponent {
 
 
 
-  // === "View" toolbar ===
-
-  /**
-   * Creates UI button for showing image viewer settings dialog.
-   */
-  __createImageViewerSettingsButton() {
-    // create the button that allows to show a dialog with image viewer settings
-    return new Vintasoft.Imaging.UI.UIElements.WebUiButtonJS({
-      cssClass: "vsdv-imageViewerSettingsButton",
-      title: "Show Image Viewer Settings",
-      localizationId: "imageViewerSettingsButton",
-      onClick: _pdfEditorDemoComponent.__imageViewerSettingsButton_clicked
-    });
-  }
-
-  /**
-   * "Show Image Viewer Settings" button is clicked.
-   */
-  __imageViewerSettingsButton_clicked(event: any, uiElement: any) {
-    let docViewer: Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS = uiElement.get_RootControl() as Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS;
-    if (docViewer != null) {
-      let imageViewer: Vintasoft.Imaging.UI.WebImageViewerJS = docViewer.get_ImageViewer();
-      if (imageViewer != null) {
-        if (_pdfEditorDemoComponent._imageViewerSettingsDialog == null) {
-          _pdfEditorDemoComponent._imageViewerSettingsDialog = new ImageViewerSettingsDialog(_pdfEditorDemoComponent.modalService);
-          _pdfEditorDemoComponent._imageViewerSettingsDialog.imageViewer = imageViewer;
-        }
-        _pdfEditorDemoComponent._imageViewerSettingsDialog.open();
-      }
-    }
-  }
-
-
-  /**
-   * Creates UI button for showing thumbnail viewer settings dialog.
-   */
-  __createThumbnailViewerSettingsButton() {
-    // create the button that allows to show a dialog with image viewer settings
-    return new Vintasoft.Imaging.UI.UIElements.WebUiButtonJS({
-      cssClass: "vsui-thumbnailViewerSettingsButton",
-      title: "Show Thumbnail Viewer Settings",
-      localizationId: "thumbnailViewerSettingsButton",
-      onClick: _pdfEditorDemoComponent.__thumbnailViewerSettingsButton_clicked
-    });
-  }
-
-  /**
-   * "Show Thumbnail Viewer Settings" button is clicked.
-   */
-  __thumbnailViewerSettingsButton_clicked(event: object, uiElement: Vintasoft.Imaging.UI.UIElements.WebUiElementJS) {
-    let docViewer: Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS = uiElement.get_RootControl() as Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS;
-    if (docViewer != null) {
-      let thumbnailViewer: Vintasoft.Imaging.UI.WebThumbnailViewerJS = docViewer.get_ThumbnailViewer();
-      if (thumbnailViewer != null) {
-        let dlg: ThumbnailViewerSettingsDialog = new ThumbnailViewerSettingsDialog(_pdfEditorDemoComponent.modalService);
-        dlg.thumbnailViewer = thumbnailViewer;
-        dlg.open();
-      }
-    }
-  }
-
-
-
   // === "Tools" toolbar ===
 
   /**
@@ -299,7 +230,6 @@ export class PdfEditorDemoComponent {
    * Registers custom UI elements in "WebUiElementsFactoryJS".
    */
   __registerNewUiElements() {
-    let printImagesHelper: PrintImagesHelper = new PrintImagesHelper(this.modalService);
     let updateInteractiveFormAndDownloadPdfDocumentHelper: UpdateInteractiveFormAndDownloadPdfDocumentHelper =
       new UpdateInteractiveFormAndDownloadPdfDocumentHelper(this.__showErrorMessage);
 
@@ -307,14 +237,6 @@ export class PdfEditorDemoComponent {
     Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("previousUploadFilesButton", this.__createPreviousUploadFilesButton);
     // override the "Download image" button in web UI elements factory
     Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("downloadFileButton", updateInteractiveFormAndDownloadPdfDocumentHelper.createDownloadPdfFileWithFilledFieldsButton);
-    // override the "Print images" button in web UI elements factory
-    Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("printImagesButton", printImagesHelper.createPrintImagesButton);
-
-    // register the "Image viewer settings" button in web UI elements factory
-    Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("imageViewerSettingsButton", this.__createImageViewerSettingsButton);
-
-    // register the "Thumbnail viewer settings" button in web UI elements factory
-    Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("thumbnailViewerSettingsButton", this.__createThumbnailViewerSettingsButton);
 
     // register the "TextSelectionTool" button in web UI elements factory
     Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("textSelectionToolButton", this.__createNavigationAndTextSelectionToolButton);
@@ -376,16 +298,6 @@ export class PdfEditorDemoComponent {
 
       // add the "Previous uploaded files" button to the menu panel
       fileMenuPanelItems.insertItem(1, "previousUploadFilesButton");
-    }
-
-    // get the "View" menu panel
-    let viewMenuPanel: Vintasoft.Imaging.UI.Panels.WebUiPanelJS = items.getItemByRegisteredId("viewMenuPanel") as Vintasoft.Imaging.UI.Panels.WebUiPanelJS;
-    // if menu panel is found
-    if (viewMenuPanel != null) {
-      // get items of menu panel
-      let viewMenuPanelItems: Vintasoft.Imaging.UI.UIElements.WebUiElementCollectionJS = viewMenuPanel.get_Items();
-      // add the "Image viewer settings" button to the menu panel
-      viewMenuPanelItems.insertItem(viewMenuPanelItems.get_Count() - 1, "imageViewerSettingsButton");
     }
   }
 

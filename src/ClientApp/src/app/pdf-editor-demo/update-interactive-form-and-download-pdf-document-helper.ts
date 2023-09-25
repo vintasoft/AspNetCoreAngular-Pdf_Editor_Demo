@@ -31,7 +31,7 @@ export class UpdateInteractiveFormAndDownloadPdfDocumentHelper {
   createDownloadPdfFileWithFilledFieldsButton() {
     // create button that allows to download a PDF file with filled interactive fields
     let element: Vintasoft.Imaging.UI.UIElements.WebUiButtonJS = new Vintasoft.Imaging.UI.UIElements.WebUiButtonJS({
-      cssClass: "vsui-downloadImageFileButton",
+      cssClass: "vsdv-downloadImageFileButton",
       title: "Download image file",
       localizationId: "downloadFileButton",
       onClick: _updateInteractiveFormAndDownloadPdfDocumentHelper.__downloadImageFileButton_clicked

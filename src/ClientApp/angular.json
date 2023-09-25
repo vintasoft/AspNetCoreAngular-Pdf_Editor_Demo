@@ -41,9 +41,10 @@
               "./node_modules/bootstrap/dist/js/bootstrap.js",
               "src/app/assets/Vintasoft.Shared.js",
               "src/app/assets/Vintasoft.Imaging.js",
-              "src/app/assets/Vintasoft.Imaging.Dialogs.Bootstrap.js"
+              "src/app/assets/Vintasoft.Imaging.Dialogs.Bootstrap.js",
               "src/app/assets/Vintasoft.Imaging.Pdf.js",
               "src/app/assets/Vintasoft.Imaging.DocumentViewer.js",
+              "src/app/assets/Vintasoft.Imaging.DocumentViewer.Dialogs.Bootstrap.js",
               "src/app/assets/multiple-select.js",
               "src/app/assets/propertyGridControl.js"
             ]
