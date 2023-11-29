@@ -1,5 +1,4 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DocumentPasswordDialog } from '../dialogs/document-password-dialog';
 
 /**
  * A helper that helps to open PDF file.
@@ -181,12 +180,39 @@ export class OpenPdfFileHelper {
    Creates a modal dialog for entering the password and shows the dialog.
   */
   showPasswordDialog(fileId: string) {
+    var that = this;
+
+
+    /**
+     File is authenticated successfully using password dialog.
+    */
+    function __passwordDialog_authenticationSucceeded(event: any, data: any) {
+      // destroy password dialog
+      __destroyPasswordDialog(event.target);
+
+      // open PDF document
+      that.openPdfDocument(data.fileId, data.filePassword);
+    }
+
+    /**
+     Destroys password dialog.
+    */
+    function __destroyPasswordDialog(passwordDialog: Vintasoft.Imaging.DocumentViewer.Dialogs.WebUiDocumentPasswordDialogJS) {
+      // remove password dialog from the document viewer
+      that._docViewer.get_Items().removeItem(passwordDialog);
+    }
+
+
     // create the document password dialog
-    let dlg: DocumentPasswordDialog = new DocumentPasswordDialog(this.modalService);
-    dlg.docViewer = this._docViewer;
-    dlg.fileId = fileId;
-    // open the document password dialog
-    dlg.open();
+    let dlg: Vintasoft.Imaging.DocumentViewer.Dialogs.WebUiDocumentPasswordDialogJS = new Vintasoft.Imaging.DocumentViewer.Dialogs.WebUiDocumentPasswordDialogJS(fileId);
+    // subscribe to the authenticationSucceeded of password dialog
+    Vintasoft.Shared.subscribeToEvent(dlg, "authenticationSucceeded", __passwordDialog_authenticationSucceeded);
+
+    // add password dialog to the document viewer
+    this._docViewer.get_Items().addItem(dlg);
+
+    // show password dialog
+    dlg.show();
   }
 
 }

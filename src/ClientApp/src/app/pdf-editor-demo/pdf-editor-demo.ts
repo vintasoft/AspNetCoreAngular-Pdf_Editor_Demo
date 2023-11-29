@@ -2,15 +2,8 @@ import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { BlockUiDialog } from "../dialogs/block-ui-dialog";
-import { PreviouslyUploadedFilesDialog } from '../dialogs/previously-uploaded-files-dialog';
 import { ErrorMessageDialog } from '../dialogs/error-message-dialog';
-import { PdfInteractiveFieldDialog } from '../dialogs/pdf-interactive-field-dialog';
-import { PdfRedactionMarkSettingsDialog } from '../dialogs/pdf-redaction-mark-settings-dialog';
-import { PdfImageResourceDialog } from '../dialogs/pdf-image-resource-dialog';
-import { ImageSelectionDialog } from '../dialogs/image-selection-dialog';
-import { PdfRedactionMarkAppearanceDialog } from '../dialogs/pdf-redaction-mark-appearance-dialog';
 import { OpenPdfFileHelper } from './open-pdf-file-helper';
-import { UpdateInteractiveFormAndDownloadPdfDocumentHelper } from './update-interactive-form-and-download-pdf-document-helper';
 import { WebUriActionExecutor } from './web-uri-action-executor';
 
 
@@ -31,6 +24,8 @@ export class PdfEditorDemoComponent {
 
   // Dialog that allows to block UI.
   _blockUiDialog: BlockUiDialog | null = null;
+
+  _pdfImageResourceDialog: Vintasoft.Imaging.DocumentViewer.Dialogs.WebUiPdfImageResourceDialogJS | null = null;
 
 
 
@@ -59,6 +54,10 @@ export class PdfEditorDemoComponent {
 
       // create the document viewer settings
       let docViewerSettings: Vintasoft.Imaging.DocumentViewer.WebDocumentViewerSettingsJS = new Vintasoft.Imaging.DocumentViewer.WebDocumentViewerSettingsJS("documentViewerContainer", "documentViewer");
+
+      // specify that document viewer should show "Export and download file" button instead of "Download file" button
+      docViewerSettings.set_CanExportAndDownloadFile(true);
+      docViewerSettings.set_CanDownloadFile(false);
 
       // initialize main menu of document viewer
       this.__initMenu(docViewerSettings);
@@ -110,48 +109,6 @@ export class PdfEditorDemoComponent {
 
 
 
-  // === "File" toolbar, "Previously uploaded files" button ===
-
-  /**
-   * Creates UI button for showing the list with previously uploaded files.
-   */
-  __createPreviousUploadFilesButton() {
-    // create the button that allows to show a dialog with previously uploaded image files and select image file
-    let button: Vintasoft.Imaging.UI.UIElements.WebUiButtonJS = new Vintasoft.Imaging.UI.UIElements.WebUiButtonJS({
-      cssClass: "uploadedFilesList",
-      title: "Previously uploaded files",
-      localizationId: "previousUploadFilesButton",
-      onClick: _pdfEditorDemoComponent.__previousUploadFilesButton_clicked
-    });
-    return button;
-  }
-
-  /**
-   * "Previously uploaded files" button is clicked.
-   */
-  __previousUploadFilesButton_clicked(event: any, uiElement: any) {
-    let docViewer: Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS = uiElement.get_RootControl() as Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS;
-    if (docViewer != null) {
-      let dlg: PreviouslyUploadedFilesDialog = new PreviouslyUploadedFilesDialog(_pdfEditorDemoComponent.modalService);
-      dlg.open();
-      dlg.okButtonClickedEvent.subscribe(receivedEntry => {
-        if (receivedEntry.fileId != null && receivedEntry.fileId != '') {
-          try {
-            if (_pdfEditorDemoComponent._openPdfFileHelper != null) {
-              // open PDF file
-              _pdfEditorDemoComponent._openPdfFileHelper.openPdfFile(receivedEntry.fileId);
-            }
-          }
-          catch (ex: any) {
-            _pdfEditorDemoComponent.__showErrorMessage(ex.message);
-          }
-        }
-      });
-    }
-  }
-
-
-
   // === "Tools" toolbar ===
 
   /**
@@ -167,84 +124,14 @@ export class PdfEditorDemoComponent {
 
 
 
-  // === "Redaction" toolbar ===
-
-  /**
-   * Creates UI button that allows to show "Mark full pages for redaction" dialog.
-   */
-  __createPdfPageRedactionMarkButton() {
-    // create the button that allows to show a dialog with previously uploaded image files and select image file
-    let button: Vintasoft.Imaging.UI.UIElements.WebUiButtonJS = new Vintasoft.Imaging.UI.UIElements.WebUiButtonJS({
-      cssClass: "vsdv-pdfPageRedactionMarkButton",
-      title: "Mark full pages for redaction",
-      localizationId: "pdfPageRedactionMarkButton",
-      onClick: _pdfEditorDemoComponent.__pdfPageRedactionMarkButton_clicked
-    });
-    return button;
-  }
-
-  /**
-   * "Mark full pages for redaction" button is clicked.
-   */
-  __pdfPageRedactionMarkButton_clicked(event: any, uiElement: any) {
-    let docViewer: Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS = uiElement.get_RootControl() as Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS;
-    if (docViewer != null) {
-      let dlg: ImageSelectionDialog = new ImageSelectionDialog(_pdfEditorDemoComponent.modalService);
-      dlg.docViewer = docViewer;
-      dlg.open();
-    }
-  }
-
-
-  /**
-   * Creates UI button that allows to show "PDF redaction mark appearance" dialog.
-   */
-  __createPdfRedactionMarkAppearanceButton() {
-    // create the button that allows to show a dialog with previously uploaded image files and select image file
-    let button: Vintasoft.Imaging.UI.UIElements.WebUiButtonJS = new Vintasoft.Imaging.UI.UIElements.WebUiButtonJS({
-      cssClass: "vsdv-pdfRedactionMarkAppearanceButton",
-      title: "PDF redaction mark appearance",
-      localizationId: "pdfRedactionMarkAppearanceButton",
-      onClick: _pdfEditorDemoComponent.__pdfRedactionMarkAppearanceButton_clicked
-    });
-    return button;
-  }
-
-  /**
-   * "PDF redaction mark appearance" button is clicked.
-   */
-  __pdfRedactionMarkAppearanceButton_clicked(event: any, uiElement: any) {
-    let docViewer: Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS = uiElement.get_RootControl() as Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS;
-    if (docViewer != null) {
-      let dlg: PdfRedactionMarkAppearanceDialog = new PdfRedactionMarkAppearanceDialog(_pdfEditorDemoComponent.modalService);
-      dlg.docViewer = docViewer;
-      dlg.open();
-    }
-  }
-
-
-
   // === Init UI ===
 
   /**
    * Registers custom UI elements in "WebUiElementsFactoryJS".
    */
   __registerNewUiElements() {
-    let updateInteractiveFormAndDownloadPdfDocumentHelper: UpdateInteractiveFormAndDownloadPdfDocumentHelper =
-      new UpdateInteractiveFormAndDownloadPdfDocumentHelper(this.__showErrorMessage);
-
-    // register the "Previously uploaded files" button in web UI elements factory
-    Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("previousUploadFilesButton", this.__createPreviousUploadFilesButton);
-    // override the "Download image" button in web UI elements factory
-    Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("downloadFileButton", updateInteractiveFormAndDownloadPdfDocumentHelper.createDownloadPdfFileWithFilledFieldsButton);
-
     // register the "TextSelectionTool" button in web UI elements factory
     Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("textSelectionToolButton", this.__createNavigationAndTextSelectionToolButton);
-
-    // register the "Mark full pages for redaction" button in web UI elements factory
-    Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("pdfPageRedactionMarkButton", this.__createPdfPageRedactionMarkButton);
-    // register the "PDF redaction mark appearance" button in web UI elements factory
-    Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("pdfRedactionMarkAppearanceButton", this.__createPdfRedactionMarkAppearanceButton);
   }
 
   /**
@@ -295,9 +182,6 @@ export class PdfEditorDemoComponent {
       let uploadFileButton: Vintasoft.Imaging.UI.UIElements.WebUiUploadFileButtonJS = fileMenuPanelItems.getItem(0) as Vintasoft.Imaging.UI.UIElements.WebUiUploadFileButtonJS;
       // specify that file must be uploaded but not opened when "Upload file" button is clicked, file will be opened later
       uploadFileButton.set_OpenFile(false);
-
-      // add the "Previous uploaded files" button to the menu panel
-      fileMenuPanelItems.insertItem(1, "previousUploadFilesButton");
     }
   }
 
@@ -321,29 +205,23 @@ export class PdfEditorDemoComponent {
 
 
       let textSearchPanel: Vintasoft.Imaging.DocumentViewer.Panels.WebUiTextSearchPanelJS = Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.createElementById("textSearchPanel") as Vintasoft.Imaging.DocumentViewer.Panels.WebUiTextSearchPanelJS;
-      textSearchPanel.set_CreatePageResultHeaderContentCallback(_pdfEditorDemoComponent.__createPageSearchResultHeaderContent);
       Vintasoft.Shared.subscribeToEvent(textSearchPanel, "stateChanged", _pdfEditorDemoComponent.__textSearchPanel_stateChanged);
       sidePanelItems.addItem(textSearchPanel);
 
 
       let pdfImageResourceExtractionPanel: Vintasoft.Imaging.DocumentViewer.Panels.WebUiPdfImageResourceExtractionPanelJS = Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.createElementById("pdfImageResourceExtractionPanel") as Vintasoft.Imaging.DocumentViewer.Panels.WebUiPdfImageResourceExtractionPanelJS;
-      pdfImageResourceExtractionPanel.set_ContentImageDescriptionCallback(_pdfEditorDemoComponent.__getDescriptionForContentImage);
       Vintasoft.Shared.subscribeToEvent(pdfImageResourceExtractionPanel, "imageDataReceived", _pdfEditorDemoComponent.__pdfImageResourceExtractionPanel_imageDataReceived);
       Vintasoft.Shared.subscribeToEvent(pdfImageResourceExtractionPanel, "stateChanged", _pdfEditorDemoComponent.__pdfImageResourceExtractionPanel_stateChanged);
       sidePanelItems.addItem(pdfImageResourceExtractionPanel);
 
 
       let pdfInteractiveFormFieldsPanel: Vintasoft.Imaging.DocumentViewer.Panels.WebUiPdfInteractiveFormFieldsPanelJS = Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.createElementById("pdfInteractiveFormFieldsPanel") as Vintasoft.Imaging.DocumentViewer.Panels.WebUiPdfInteractiveFormFieldsPanelJS;
-      pdfInteractiveFormFieldsPanel.set_CreateInteractionFieldContentCallback(_pdfEditorDemoComponent.__createInteractionFieldContent);
-      pdfInteractiveFormFieldsPanel.set_CreatePageFieldsHeaderContentCallback(_pdfEditorDemoComponent.__createPageFieldsHeaderContent);
       Vintasoft.Shared.subscribeToEvent(pdfInteractiveFormFieldsPanel, "stateChanged", _pdfEditorDemoComponent.__pdfInteractiveFormFieldsPanel_stateChanged);
       sidePanelItems.addItem(pdfInteractiveFormFieldsPanel);
 
 
       let pdfRedactionMarksPanel: Vintasoft.Imaging.DocumentViewer.Panels.WebUiPdfRedactionMarkListPanelJS = Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.createElementById("pdfRedactionMarkListPanel") as Vintasoft.Imaging.DocumentViewer.Panels.WebUiPdfRedactionMarkListPanelJS;
       // set the callback for creating record for redaction mark
-      pdfRedactionMarksPanel.set_CreateRedactionMarkContentCallback(_pdfEditorDemoComponent.__createContentForRedactionMarkRecord);
-      pdfRedactionMarksPanel.set_CreateCollectionHeaderContentCallback(_pdfEditorDemoComponent.__createContentForRedactionMarksCollectionHeader);
       Vintasoft.Shared.subscribeToEvent(pdfRedactionMarksPanel, "stateChanged", _pdfEditorDemoComponent.__pdfRedactionMarksPanel_stateChanged);
       sidePanelItems.addItem(pdfRedactionMarksPanel);
     }
@@ -392,16 +270,6 @@ export class PdfEditorDemoComponent {
     _pdfEditorDemoComponent.__activateToolWhenPanelBecomeActive(this, eventArgs.newState, "DocumentNavigationTool,TextSelectionTool");
   }
 
-  /**
-   * Returns UI elements, which display information about image page search result.
-   * @param image Image, where text was searched.
-   * @param imageIndex The zero-based index of the image in the collection.
-   * @param searchResults Search result.
-   */
-  __createPageSearchResultHeaderContent(image: HTMLImageElement, imageIndex: number, searchResults: any) {
-    return [new Vintasoft.Imaging.UI.UIElements.WebUiLabelElementJS({ text: "Page # " + (imageIndex + 1), css: { cursor: "pointer" } })];
-  }
-
 
 
   // === Init UI, PDF image-resource extraction panel ===
@@ -410,9 +278,23 @@ export class PdfEditorDemoComponent {
    * Image data is received by PDF image-resource extraction panel.
    */
   __pdfImageResourceExtractionPanel_imageDataReceived(event: any, contentImage: Vintasoft.Imaging.Pdf.WebContentImageJS) {
-    let dlg: PdfImageResourceDialog = new PdfImageResourceDialog(_pdfEditorDemoComponent.modalService);
-    dlg.image = contentImage;
-    dlg.open();
+    if (_pdfEditorDemoComponent._docViewer == null)
+      return;
+
+    // if previous image processing dialog exists
+    if (_pdfEditorDemoComponent._pdfImageResourceDialog != null) {
+      // remove dialog from web document viewer
+      _pdfEditorDemoComponent._docViewer.get_Items().removeItem(_pdfEditorDemoComponent._pdfImageResourceDialog);
+      // clear link to dialog
+      _pdfEditorDemoComponent._pdfImageResourceDialog = null;
+    }
+
+    // create dialog to view the PDF image resource info
+    _pdfEditorDemoComponent._pdfImageResourceDialog = new Vintasoft.Imaging.DocumentViewer.Dialogs.WebUiPdfImageResourceDialogJS(contentImage);
+    // add dialog to the document viewer
+    _pdfEditorDemoComponent._docViewer.get_Items().addItem(_pdfEditorDemoComponent._pdfImageResourceDialog);
+    // show dialog
+    _pdfEditorDemoComponent._pdfImageResourceDialog.show();
   }
 
   /**
@@ -420,23 +302,6 @@ export class PdfEditorDemoComponent {
    */
   __pdfImageResourceExtractionPanel_stateChanged(event: any, eventArgs: any) {
     _pdfEditorDemoComponent.__activateToolWhenPanelBecomeActive(this, eventArgs.newState, "PdfImageExtractorTool");
-  }
-
-  /**
-   * Returns description for specified content image.
-   * @param contentImage Content image.
-   * @returns Description.
-  */
-  __getDescriptionForContentImage(contentImage: Vintasoft.Imaging.Pdf.WebContentImageJS) {
-    // get image resource
-    let resource: Vintasoft.Imaging.Pdf.WebPdfImageResourceJS = contentImage.get_Resource();
-    // get image size
-    let imageSize: any = resource.get_Size();
-    // create text
-    let text: string = "#" + resource.get_ObjectNumber() + ", " + imageSize.width + "x" + imageSize.height + "px, ";
-    text += "Compression=" + resource.get_Compression() + ", " + resource.get_Length() + " bytes";
-    // return text
-    return text;
   }
 
 
@@ -450,54 +315,6 @@ export class PdfEditorDemoComponent {
     _pdfEditorDemoComponent.__activateToolWhenPanelBecomeActive(this, eventArgs.newState, "PdfInteractiveFormTool");
   }
 
-  /**
-   * Returns UI elements, which display information about PDF interactive field.
-   * @param field PDF interactive field.
-   */
-  __createInteractionFieldContent(field: Vintasoft.Imaging.Pdf.WebPdfInteractiveFormFieldJS) {
-    let name: string = field.get_PartialName();
-    if (name === "")
-      name = field.get_Type();
-
-    let label: Vintasoft.Imaging.UI.UIElements.WebUiLabelElementJS = new Vintasoft.Imaging.UI.UIElements.WebUiLabelElementJS({ text: name });
-
-    // create annotation properties button
-    let settingsButton: Vintasoft.Imaging.UI.UIElements.WebUiButtonJS = new Vintasoft.Imaging.UI.UIElements.WebUiButtonJS({
-      cssClass: "fieldSettingsButton",
-      title: "Interactive field properties",
-      onClick: function () {
-        _pdfEditorDemoComponent.__showInteractiveFieldPropertyGrid(field);
-      }
-    });
-
-    return [label, settingsButton];
-  }
-
-  /**
-   * Returns UI elements, which display information about page header when information about interactive fields is grouped by pages.
-   * @param image Image, where text was searched.
-   * @param imageIndex The zero-based index of the image in the collection.
-   */
-  __createPageFieldsHeaderContent(image: HTMLImageElement, imageIndex: number) {
-    return [new Vintasoft.Imaging.UI.UIElements.WebUiLabelElementJS({ text: "Page # " + (imageIndex + 1), css: { cursor: "pointer" } })];
-  }
-
-  /**
-   * Shows the property grid dialog with information about interactive field.
-   * @param field The interactive field, which should be shown in property grid dialog.
-   */
-  __showInteractiveFieldPropertyGrid(field: Vintasoft.Imaging.Pdf.WebPdfInteractiveFormFieldJS) {
-    let blackList: Array<string> = ["get_Parent", "get_PdfDocument", "get_ObjectNumber"];
-    // create the property grid with information about interactive field properties
-
-    let dlg: PdfInteractiveFieldDialog = new PdfInteractiveFieldDialog(_pdfEditorDemoComponent.modalService);
-    dlg.field = field;
-    dlg.objShortName = "";
-    dlg.objFullName = "";
-    dlg.blackList = blackList;
-    dlg.open();
-  }
-
 
 
   // === Init UI, PDF redaction marks panel ===
@@ -507,50 +324,6 @@ export class PdfEditorDemoComponent {
    */
   __pdfRedactionMarksPanel_stateChanged(event: object, eventArgs: any) {
     _pdfEditorDemoComponent.__activateToolWhenPanelBecomeActive(this, eventArgs.newState, "PdfRemoveContentTool");
-  }
-
-  /**
-   * Returns UI elements, which will display information about redaction mark.
-   * @param redactionMark Redaction mark.
-   * @param collection Collection of redaction marks.
-   */
-  __createContentForRedactionMarkRecord(redactionMark: Vintasoft.Imaging.Pdf.WebPdfPageRedactionMarkJS, collection: Vintasoft.Imaging.Pdf.WebPdfRedactionMarkCollectionJS) {
-    // get mark type
-    let markName: object = redactionMark.get_MarkType();
-    // create label
-    let nameLabel: Vintasoft.Imaging.UI.UIElements.WebUiLabelElementJS = new Vintasoft.Imaging.UI.UIElements.WebUiLabelElementJS({ text: markName.toString(), cssClass: "mark-type" });
-    // create redaction mark properties button
-    let redactionMarkSettingsButton: Vintasoft.Imaging.UI.UIElements.WebUiButtonJS = new Vintasoft.Imaging.UI.UIElements.WebUiButtonJS({
-      cssClass: "redactionMarkSettingsButton",
-      title: "Redaction mark properties",
-      onClick: function () {
-        _pdfEditorDemoComponent.__showRedactionMarkPropertyGrid(redactionMark);
-      }
-    });
-
-    // return elements
-    return [nameLabel, redactionMarkSettingsButton];
-  }
-
-  /**
-   * Returns UI elements, which will display information about redaction marks collection.
-   * @param collection Redaction marks collection.
-   * @param index Zero-based index of redaction marks collection.
-   */
-  __createContentForRedactionMarksCollectionHeader(collection: Vintasoft.Imaging.Pdf.WebPdfRedactionMarkCollectionJS, index: number) {
-    let text: string = "Page #" + (index + 1) + " [" + collection.get_Count() + "]";
-    return [new Vintasoft.Imaging.UI.UIElements.WebUiLabelElementJS({ text: text })];
-  }
-
-  /**
-   * Shows the property grid dialog with information about redaction mark.
-   * @param redactionMark Redaction mark, which should be shown in property grid dialog.
-   */
-  __showRedactionMarkPropertyGrid(redactionMark: Vintasoft.Imaging.Pdf.WebPdfPageRedactionMarkJS) {
-    // create the property grid with information about annotation properties
-    let dlg: PdfRedactionMarkSettingsDialog = new PdfRedactionMarkSettingsDialog(_pdfEditorDemoComponent.modalService);
-    dlg.field = redactionMark;
-    dlg.open();
   }
 
 
@@ -589,12 +362,6 @@ export class PdfEditorDemoComponent {
    * @param docViewer The document viewer.
    */
   __initializeVisualTools(docViewer: Vintasoft.Imaging.DocumentViewer.WebDocumentViewerJS) {
-    let panTool: Vintasoft.Imaging.UI.VisualTools.WebPanToolJS = docViewer.getVisualToolById("PanTool");
-    let panCursor: string = "url('Content/Cursors/CloseHand.cur'), auto";
-
-    panTool.set_Cursor("pointer");
-    panTool.set_ActionCursor(panCursor);
-
     // get navigation tool
     let documentNavigationTool: Vintasoft.Imaging.UI.VisualTools.WebDocumentNavigationToolJS = docViewer.getVisualToolById("DocumentNavigationTool") as Vintasoft.Imaging.UI.VisualTools.WebDocumentNavigationToolJS;
     // create navigation action executor
@@ -611,31 +378,6 @@ export class PdfEditorDemoComponent {
 
 
   // === Document viewer events ===
-
-  /**
-   * Document viewer sends a request for file authentication.
-   */
-  __docViewer_fileAuthenticationRequest(event: object, eventArgs: any) {
-    if (_pdfEditorDemoComponent._openPdfFileHelper == null)
-      return;
-
-    // specify that processed the event and web document viewer does not need to show standard password dialog
-    eventArgs.handled = true;
-
-    // open document password dialog
-    _pdfEditorDemoComponent._openPdfFileHelper.showPasswordDialog(eventArgs.fileId);
-  }
-
-  /**
-   * File is opened in document viewer.
-   */
-  __docViewer_fileOpened(event: object, data: any) {
-    if (_pdfEditorDemoComponent._openPdfFileHelper == null)
-      return;
-
-    // open the PDF document in image viewer
-    _pdfEditorDemoComponent._openPdfFileHelper.openPdfDocument(data.fileId, data.filePassword);
-  }
 
   /**
    * Warning is occured in document viewer.
@@ -684,6 +426,31 @@ export class PdfEditorDemoComponent {
     // if additional information does NOT exist
     else
       _pdfEditorDemoComponent.__showErrorMessage(description + ": unknown error.");
+  }
+
+  /**
+   * Document viewer sends a request for file authentication.
+   */
+  __docViewer_fileAuthenticationRequest(event: object, eventArgs: any) {
+    if (_pdfEditorDemoComponent._openPdfFileHelper == null)
+      return;
+
+    // specify that processed the event and web document viewer does not need to show standard password dialog
+    eventArgs.handled = true;
+
+    // open document password dialog
+    _pdfEditorDemoComponent._openPdfFileHelper.showPasswordDialog(eventArgs.fileId);
+  }
+
+  /**
+   * File is opened in document viewer.
+   */
+  __docViewer_fileOpened(event: object, data: any) {
+    if (_pdfEditorDemoComponent._openPdfFileHelper == null)
+      return;
+
+    // open the PDF document in image viewer
+    _pdfEditorDemoComponent._openPdfFileHelper.openPdfDocument(data.fileId, data.filePassword);
   }
 
 

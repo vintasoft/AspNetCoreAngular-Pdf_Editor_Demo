@@ -1,7 +1,6 @@
 /**
  Represents the action executor that executes URI actions.
 */
-
 export class WebUriActionExecutor extends Vintasoft.Imaging.WebPageContentActionExecutorJS {
 
   constructor() {
@@ -28,9 +27,11 @@ export class WebUriActionExecutor extends Vintasoft.Imaging.WebPageContentAction
         // open URL
         window.open(uri, "_blank");
       }
+
+      return true;
     }
 
-    return true;
+    return false;
   }
 
 }
