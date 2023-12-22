@@ -197,14 +197,14 @@ export class OpenPdfFileHelper {
     /**
      Destroys password dialog.
     */
-    function __destroyPasswordDialog(passwordDialog: Vintasoft.Imaging.DocumentViewer.Dialogs.WebUiDocumentPasswordDialogJS) {
+    function __destroyPasswordDialog(passwordDialog: Vintasoft.Imaging.UI.Dialogs.WebUiDocumentPasswordDialogJS) {
       // remove password dialog from the document viewer
       that._docViewer.get_Items().removeItem(passwordDialog);
     }
 
 
     // create the document password dialog
-    let dlg: Vintasoft.Imaging.DocumentViewer.Dialogs.WebUiDocumentPasswordDialogJS = new Vintasoft.Imaging.DocumentViewer.Dialogs.WebUiDocumentPasswordDialogJS(fileId);
+    let dlg: Vintasoft.Imaging.UI.Dialogs.WebUiDocumentPasswordDialogJS = new Vintasoft.Imaging.UI.Dialogs.WebUiDocumentPasswordDialogJS(fileId);
     // subscribe to the authenticationSucceeded of password dialog
     Vintasoft.Shared.subscribeToEvent(dlg, "authenticationSucceeded", __passwordDialog_authenticationSucceeded);
 
