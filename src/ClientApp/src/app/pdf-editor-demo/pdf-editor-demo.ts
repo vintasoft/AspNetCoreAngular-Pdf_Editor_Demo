@@ -54,10 +54,10 @@ export class PdfEditorDemoComponent {
 
       // create the document viewer settings
       let docViewerSettings: Vintasoft.Imaging.DocumentViewer.WebDocumentViewerSettingsJS = new Vintasoft.Imaging.DocumentViewer.WebDocumentViewerSettingsJS("documentViewerContainer", "documentViewer");
-
       // specify that document viewer should show "Export and download file" button instead of "Download file" button
       docViewerSettings.set_CanExportAndDownloadFile(true);
       docViewerSettings.set_CanDownloadFile(false);
+      docViewerSettings.set_CanClearSessionCache(true);
 
       // initialize main menu of document viewer
       this.__initMenu(docViewerSettings);
