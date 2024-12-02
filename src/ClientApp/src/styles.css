@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-#documentViewerContainer {
+#pdfDocumentEditorContainer {
   height: 800px;
 }
 
@@ -29,79 +29,79 @@
 }
 
 @media (min-height:400px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 350px;
   }
 }
 
 @media (min-height:500px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 450px;
   }
 }
 
 @media (min-height:600px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 550px;
   }
 }
 
 @media (min-height:700px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 650px;
   }
 }
 
 @media (min-height:800px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 750px;
   }
 }
 
 @media (min-height:900px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 850px;
   }
 }
 
 @media (min-height:1000px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 950px;
   }
 }
 
 @media (min-height:1100px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 1050px;
   }
 }
 
 @media (min-height:1200px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 1150px;
   }
 }
 
 @media (min-height:1300px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 1250px;
   }
 }
 
 @media (min-height:1400px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 1350px;
   }
 }
 
 @media (min-height:1500px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 1450px;
   }
 }
 
 @media (min-height:1600px) {
-  #documentViewerContainer {
+  #pdfDocumentEditorContainer {
     height: 1550px;
   }
 }

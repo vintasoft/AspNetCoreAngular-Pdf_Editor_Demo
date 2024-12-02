@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreAngularPdfEditorDemo.Net6", "AspNetCoreAngularPdfEditorDemo.Net6.csproj", "{5ADBF676-E3D2-457A-9C2D-0A4F2F07F24F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreAngularPdfEditorDemo.Net9", "AspNetCoreAngularPdfEditorDemo.Net9.csproj", "{5ADBF676-E3D2-457A-9C2D-0A4F2F07F24F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

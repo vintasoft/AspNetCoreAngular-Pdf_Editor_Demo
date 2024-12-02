@@ -100,91 +100,26 @@ declare module Vintasoft.Imaging.Pdf {
 
   }
 
-
-  // ===== CLASSES =====
-
   /**
-   * Manages opened PDF documents.
+   * Specifies available compressions for data of PDF document.
    */
-  class WebPdfDocumentControllerJS {
+  class WebPdfCompressionEnumJS extends Vintasoft.Shared.WebFlagsEnumItemBaseJS {
 
-    // CONTSRUCTORS
-
-    /**
-     * Initializes a new instance of the [see= "WebPdfDocumentControllerJS"] class.
-     */
-    constructor();
-
-    // METHODS
-
-    /**
-     * Opens the PDF document with specified identifier.
-     * @param pdfDocumentId An identifier of PDF document.
-     * @param pdfDocumentPassword Password of PDF document.
-     * @param successFunc Function that will be executed if request is executed successfully.
-     * @param errorFunc Function that will be executed if request is failed.
-     * @param pdfService [see="WebServiceJS"] which allows to work with PDF documents.
-     */
-    static openPdfDocument(pdfDocumentId: string, pdfDocumentPassword: string, successFunc: Function, errorFunc: Function, pdfService: Vintasoft.Shared.WebServiceJS): void;
-
-    /**
-     * Opens the PDF document with specified identifier.
-     * @param pdfDocumentId An identifier of PDF document.
-     * @param successFunc Function that will be executed if request is executed successfully.
-     * @param errorFunc Function that will be executed if request is failed.
-     * @param pdfService [see="WebServiceJS"] which allows to work with PDF documents.
-     */
-    static openPdfDocument(pdfDocumentId: string, successFunc: Function, errorFunc: Function, pdfService: Vintasoft.Shared.WebServiceJS): void;
-
-    /**
-     * Opens the PDF document with specified identifier.
-     * @param pdfDocumentId An identifier of PDF document.
-     * @param pdfDocumentPassword Password of PDF document.
-     * @param successFunc Function that will be executed if request is executed successfully.
-     * @param errorFunc Function that will be executed if request is failed.
-     */
-    static openPdfDocument(pdfDocumentId: string, pdfDocumentPassword: string, successFunc: Function, errorFunc: Function): void;
-
-    /**
-     * Opens the PDF document with specified identifier.
-     * @param pdfDocumentId An identifier of PDF document.
-     * @param successFunc Function that will be executed if request is executed successfully.
-     * @param errorFunc Function that will be executed if request is failed.
-     */
-    static openPdfDocument(pdfDocumentId: string, successFunc: Function, errorFunc: Function): void;
-
-    /**
-     * Returns an array of images, which are associated with specified pages of PDF document.
-     * @param pdfDocument [see="WebPdfDocumentJS"] object.
-     * @param imageService [see="WebServiceJS"] which allows to work with image. Default service will be used if this parameter is null.
-     * @param annotationService [see="WebServiceJS"] which allows to annotate image. Default service will be used if this parameter is null.
-     */
-    static getImagesAssociatedWithPdfPages(pdfDocument: Vintasoft.Imaging.Pdf.WebPdfDocumentJS, imageService: Vintasoft.Shared.WebServiceJS, annotationService: Vintasoft.Shared.WebServiceJS): Vintasoft.Shared.WebImageJS[];
-
-    /**
-     * Returns an array of images, which are associated with specified pages of PDF document.
-     * @param pdfDocument [see="WebPdfDocumentJS"] object.
-     */
-    static getImagesAssociatedWithPdfPages(pdfDocument: Vintasoft.Imaging.Pdf.WebPdfDocumentJS): Vintasoft.Shared.WebImageJS[];
-
-    /**
-     * Closes the previously opened PDF document.
-     * @param pdfDocument An instance of [see="WebPdfDocumentJS"] class that defines the previously opened PDF document.
-     */
-    static closeDocument(pdfDocument: Vintasoft.Imaging.Pdf.WebPdfDocumentJS): void;
-
-    /**
-     * Returns all opened PDF documents.
-     */
-    static getAllOpenedDocuments(): Vintasoft.Imaging.Pdf.WebPdfDocumentJS[];
-
-    /**
-     * Returns a [see="WebPdfDocumentJS"] object associated with specified [see="WebImageJS"] object.
-     * @param image [see="WebImageJS"] object.
-     */
-    static getPageAssociatedWithImage(image: Vintasoft.Shared.WebImageJS): Vintasoft.Imaging.Pdf.WebPdfPageJS;
+    constructor(value: string);
 
   }
+
+  /**
+   * Specifies available versions of PDF format.
+   */
+  class WebPdfFormatEnumJS extends Vintasoft.Shared.WebEnumItemBaseJS {
+
+    constructor(value: string);
+
+  }
+
+
+  // ===== CLASSES =====
 
   /**
    * Provides an abstract base class for all objects in the tree of PDF document.
@@ -635,8 +570,9 @@ declare module Vintasoft.Imaging.Pdf {
     /**
      * Initializes a new instance of the [see= "WebPdfImageViewerActionExecutorJS"] class.
      * @param viewer Instance of [see="WebImageViewerJS"] class.
+     * @param pdfDocumentEditorControl The PDF document editor control.
      */
-    constructor(viewer: Vintasoft.Imaging.UI.WebImageViewerJS);
+    constructor(viewer: Vintasoft.Imaging.UI.WebImageViewerJS, pdfDocumentEditorControl: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlJS);
 
     // PROPERTIES
 
@@ -663,8 +599,9 @@ declare module Vintasoft.Imaging.Pdf {
     /**
      * Initializes a new instance of the [see= "WebPdfGotoActionExecutorJS"] class.
      * @param viewer Instance of [see="WebImageViewerJS"] class.
+     * @param pdfDocumentEditorControl The PDF document editor control.
      */
-    constructor(viewer: Vintasoft.Imaging.UI.WebImageViewerJS);
+    constructor(viewer: Vintasoft.Imaging.UI.WebImageViewerJS, pdfDocumentEditorControl: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlJS);
 
     // METHODS
 
@@ -768,7 +705,7 @@ declare module Vintasoft.Imaging.Pdf {
      * @param region Region of content image in coordinates of PDF page.
      * @param resolution Rendering resolution of content image.
      */
-    constructor(imageResource: Vintasoft.Imaging.Pdf.WebPdfImageResourceJS, region: object, resolution: object);
+    constructor(imageResource: Vintasoft.Imaging.Pdf.WebPdfImageResourceJS, region: object, resolution: Vintasoft.Shared.WebResolutionJS);
 
     // PROPERTIES
 
@@ -785,7 +722,7 @@ declare module Vintasoft.Imaging.Pdf {
     /**
      * Gets a rendering resolution of content image.
      */
-    get_Resolution(): object;
+    get_Resolution(): Vintasoft.Shared.WebResolutionJS;
 
     // METHODS
 
@@ -1028,8 +965,9 @@ declare module Vintasoft.Imaging.Pdf {
      * Initializes a new instance of the [see= "WebPdfDocumentJS"] class.
      * @param id The identifier of PDF document.
      * @param service A [see="WebServiceJS"], which allows to work with PDF documents.
+     * @param pdfDocumentEditorControl The PDF document editor control.
      */
-    constructor(id: string, service: Vintasoft.Shared.WebServiceJS);
+    constructor(id: string, service: Vintasoft.Shared.WebServiceJS, pdfDocumentEditorControl: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlJS);
 
     // PROPERTIES
 
@@ -1156,6 +1094,22 @@ declare module Vintasoft.Imaging.Pdf {
     applyRedactionMarks(redactionMarks: Vintasoft.Imaging.Pdf.WebPdfPageRedactionMarkJS[], redactionMarksAppearance: Vintasoft.Imaging.Pdf.WebPdfRedactionMarkAppearanceJS, successFunc: Function, errorFunc: Function): void;
 
     /**
+     * Sends an asynchronous request to convert this PDF document to PDF/A format.
+     * @param pdfAFormat PDF/A conversion format.<br> Supported formats:<br/> <ul> <li>"1a"</li> <li>"1b"</li> <li>"2a"</li> <li>"2b"</li> <li>"2u".</li> <li>"3a"</li> <li>"3b"</li> <li>"3u"</li> <li>"4"</li> <li>"4f"</li> <li>"4e"</li> </ul>
+     * @param successFunc Function that will be executed if request is executed successfully. Here is function prototype "function __success(data)".<br/> The data parameter has the following properties:<br/> <ul> <li>id (string): An identifier of converted PDF document.</li> <li>result (string): Information about PDF/A conversion result. </li> </ul>
+     * @param errorFunc Function that will be executed if request is failed. Here is function prototype "function __error(data)".<br/> The data parameter can be:<br/> <ol> <li>An object with following properties:<br/> <ul> <li>result (string): Information about PDF/A conversion result. <li>errorMessage (string): Error message.</li> <li>blocked (boolean): Indicates that the requested action is blocked by another request.</li> </ul> if exception is catched inside web service. </li> <li>Otherwise, jqXHR object.</li> </ol>
+     */
+    convertToPdfA(pdfAFormat: string, successFunc: Function, errorFunc: Function): void;
+
+    /**
+     * Sends an asynchronous request to verify this PDF document for conformance to PDF/A format.
+     * @param pdfAFormat PDF/A verify format.<br> Supported formats:<br/> <ul> <li>"1a"</li> <li>"1b"</li> <li>"2a"</li> <li>"2b"</li> <li>"2u".</li> <li>"3a"</li> <li>"3b"</li> <li>"3u"</li> <li>"4"</li> <li>"4f"</li> <li>"4e"</li> </ul>
+     * @param successFunc Function that will be executed if request is executed successfully. Here is function prototype "function __success(data)".<br/> The data parameter has the following properties:<br/> <ul> <li>id (string): An identifier of converted PDF document.</li> <li>result (string): Information about PDF/A verification result. </li> </ul>
+     * @param errorFunc Function that will be executed if request is failed. Here is function prototype "function __error(data)".<br/> The data parameter can be:<br/> <ol> <li>An object with following properties:<br/> <ul> <li>result (string): Information about PDF/A verification result. <li>errorMessage (string): Error message.</li> <li>blocked (boolean): Indicates that the requested action is blocked by another request.</li> </ul> if exception is catched inside web service. </li> <li>Otherwise, jqXHR object.</li> </ol>
+     */
+    verifyPdfAConformance(pdfAFormat: string, successFunc: Function, errorFunc: Function): void;
+
+    /**
      * Disposes the PDF document.
      */
     dispose(): void;
@@ -1224,7 +1178,7 @@ declare module Vintasoft.Imaging.Pdf {
      * Returns the transformation matrix from page space to the image space.
      * @param resolution Image resolution.
      */
-    getTrasformFromPageSpaceToImageSpace(resolution: object): Vintasoft.Imaging.Utils.WebMatrixJS;
+    getTrasformFromPageSpaceToImageSpace(resolution: Vintasoft.Shared.WebResolutionJS): Vintasoft.Imaging.Utils.WebMatrixJS;
 
     /**
      * Sends an asynchronous request for getting all image resources associated with this PDF page.
@@ -1241,7 +1195,7 @@ declare module Vintasoft.Imaging.Pdf {
     requestLinks(successFunc: Function, errorFunc: Function): void;
 
     /**
-     * Sends an asynchronous request for getting parameters of PDF page (page index, transformation matrix, media box, etc).
+     * Sends an asynchronous request for getting parameters of PDF page (page index, transformation matrix, media box, etc). Raises the "pageInfoReceived" event if page info is received successfully. Raises the "pageInfoRequestFailed" event, if request is finished with error.
      * @param successFunc Function that will be executed if request is executed successfully. Here is function prototype "function __success(data)".<br/> The data parameter has the following properties:<br/> <ul> <li>links (object): An array of [see="WebPdfLinkJS"] objects that defines all links associated with this PDF page.</li> </ul>
      * @param errorFunc Function that will be executed if request is failed. Here is function prototype "function __error(data)".<br/> The data parameter can be:<br/> <ol> <li>An object with following properties:<br/> <ul> <li>errorMessage (string): Error message.</li> <li>blocked (boolean): Indicates that the requested action is blocked by another request.</li> </ul> if exception is catched inside web service. </li> <li>Otherwise, jqXHR object.</li> </ol>
      */
@@ -2010,14 +1964,16 @@ declare module Vintasoft.Imaging.Pdf {
     /**
      * Initializes a new instance of the [see= "WebPdfRedactionMarkJS"] class.
      * @param image The image associated with PDF page.
+     * @param pdfDocumentEditorControl The PDF document editor control.
      */
-    constructor(image: Vintasoft.Shared.WebImageJS);
+    constructor(image: Vintasoft.Shared.WebImageJS, pdfDocumentEditorControl: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlJS);
 
     /**
      * Initializes a new instance of the [see= "WebPdfRedactionMarkJS"] class.
      * @param image PDF page.
+     * @param pdfDocumentEditorControl The PDF document editor control.
      */
-    constructor(image: Vintasoft.Imaging.Pdf.WebPdfPageJS);
+    constructor(image: Vintasoft.Imaging.Pdf.WebPdfPageJS, pdfDocumentEditorControl: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlJS);
 
     // PROPERTIES
 
@@ -2056,8 +2012,9 @@ declare module Vintasoft.Imaging.Pdf {
     /**
      * Initializes a new instance of the [see= "WebPdfPageRedactionMarkJS"] class.
      * @param image The image associated with PDF page.
+     * @param pdfDocumentEditorControl The PDF document editor control.
      */
-    constructor(image: Vintasoft.Shared.WebImageJS);
+    constructor(image: Vintasoft.Shared.WebImageJS, pdfDocumentEditorControl: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlJS);
 
     // PROPERTIES
 
@@ -2089,6 +2046,1158 @@ declare module Vintasoft.Imaging.Pdf {
 
   }
 
+  /**
+   * Encapsulates the settings for compression of PDF document.
+   */
+  class WebPdfCompressionSettingsJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebPdfCompressionSettingsJS"] class.
+     */
+    constructor();
+
+    // PROPERTIES
+
+    /**
+     * Gets the JPEG encoder settings.
+     */
+    get_JpegEncoderSettings(): Vintasoft.Imaging.WebJpegEncoderSettingsJS;
+
+    /**
+     * Sets the JPEG encoder settings.
+     * @param value The JPEG encoder settings.
+     */
+    set_JpegEncoderSettings(value: Vintasoft.Imaging.WebJpegEncoderSettingsJS): void;
+
+    /**
+     * Gets the ZIP compression level.
+     */
+    get_ZipCompressionLevel(): number;
+
+    /**
+     * Sets the ZIP compression level.
+     * @param value Possible values: from 0 to 9.<br /> 0 - no compression, 1 - best speed, 9 - best compression.<br /> Default value is <b>6</b>.
+     */
+    set_ZipCompressionLevel(value: number): void;
+
+    /**
+     * Gets a value indicating whether Jbig2Globals must be used when Jbig2 encoder is used.
+     */
+    get_Jbig2UseGlobals(): boolean;
+
+    /**
+     * Sets a value indicating whether Jbig2Globals must be used when Jbig2 encoder is used.
+     * @param value True - Jbig2Globals must be used when Jbig2 encoder is used; True - Jbig2Globals must not be used when Jbig2 encoder is used. The default value is <b>true</b>.
+     */
+    set_Jbig2UseGlobals(value: boolean): void;
+
+    /**
+     * Gets the JBIG2 encoder settings.
+     */
+    get_Jbig2EncoderSettings(): Vintasoft.Imaging.WebJbig2EncoderSettingsJS;
+
+    /**
+     * Sets the JBIG2 encoder settings.
+     * @param value The JBIG2 encoder settings.
+     */
+    set_Jbig2EncoderSettings(value: Vintasoft.Imaging.WebJbig2EncoderSettingsJS): void;
+
+    /**
+     * Gets a value indicating whether the alpha channel must be generated for transparent images.
+     */
+    get_GenerateAlphaChannelForTransparentImages(): boolean;
+
+    /**
+     * Sets a value indicating whether the alpha channel must be generated for transparent images.
+     * @param value The value indicating whether the alpha channel must be generated for transparent images. The default value is <b>true</b>.
+     */
+    set_GenerateAlphaChannelForTransparentImages(value: boolean): void;
+
+    /**
+     * Gets the JPEG 2000 encoder settings.
+     */
+    get_Jpeg2000EncoderSettings(): Vintasoft.Imaging.WebJpeg2000EncoderSettingsJS;
+
+    /**
+     * Sets the JPEG 2000 encoder settings.
+     * @param value The JPEG 2000 encoder settings.
+     */
+    set_Jpeg2000EncoderSettings(value: Vintasoft.Imaging.WebJpeg2000EncoderSettingsJS): void;
+
+  }
+
+  /**
+   * Contains information about format and version of PDF document.
+   */
+  class WebPdfFormatJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebPdfFormatJS"] class.
+     */
+    constructor();
+
+    // PROPERTIES
+
+    /**
+     * Gets PDF format version.
+     */
+    get_DocumentPackFormat(): Vintasoft.Imaging.Pdf.WebPdfFormatEnumJS;
+
+    /**
+     * Sets PDF format version.
+     * @param value The PDF format.<br /> Default value is WebPdfFormatEnumJS.<b>Pdf17</b>.
+     */
+    set_DocumentPackFormat(value: Vintasoft.Imaging.Pdf.WebPdfFormatEnumJS): void;
+
+    /**
+     * Gets a value indicating whether PDF document should have linearized format (Fast Web View).
+     */
+    get_CreateLinearizedDocument(): boolean;
+
+    /**
+     * Sets a value indicating whether PDF document should have linearized format (Fast Web View).
+     * @param value <b>True</b> - PDF document should have linearized format (Fast Web View); <b>false</b> - PDF document should not have linearized format.<br /> Default value is <b>false</b>.
+     */
+    set_CreateLinearizedDocument(value: boolean): void;
+
+  }
+
+  /**
+   * The settings for the WebPdfDocumentCompressorJS class.
+   */
+  class WebPdfDocumentCompressorSettingsJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebPdfDocumentCompressorSettingsJS"] class.
+     */
+    constructor();
+
+    // PROPERTIES
+
+    /**
+     * Gets the maximum thread count.
+     */
+    get_MaxThreadCount(): number;
+
+    /**
+     * Sets the maximum thread count.
+     * @param value The maximum thread count. Default value is <b>1</b>.
+     */
+    set_MaxThreadCount(value: number): void;
+
+    /**
+     * Gets a value indicating whether the command must flatten (burn) annotations.
+     */
+    get_FlattenAnnotations(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must flatten (burn) annotations.
+     * @param value <b>True</b> - command must flatten annotations; <b>false</b> - command must NOT flatten annotations.<br /> Default value is <b>false</b>.
+     */
+    set_FlattenAnnotations(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove annotations.
+     */
+    get_RemoveAnnotations(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove annotations.
+     * @param value <b>True</b> - command must remove annotations; <b>false</b> - command must NOT remove annotations.<br/ Default value is <b>false</b>.
+     */
+    set_RemoveAnnotations(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove structure tree.
+     */
+    get_RemoveStructureTree(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove structure tree.
+     * @param value <b>True</b> - command must remove structure tree; <b>false</b> - command must NOT remove structure tree.<br/ Default value is <b>false</b>.
+     */
+    set_RemoveStructureTree(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove interactive forms.
+     */
+    get_RemoveInteractiveForm(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove interactive forms.
+     * @param value <b>True</b> - command must remove interactive forms; <b>false</b> - command must NOT remove interactive forms.<br/ Default value is <b>false</b>.
+     */
+    set_RemoveInteractiveForm(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove bookmarks.
+     */
+    get_RemoveBookmarks(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove bookmarks.
+     * @param value <b>True</b> - command must remove bookmarks; <b>false</b> - command must NOT remove bookmarks.<br/ Default value is <b>false</b>.
+     */
+    set_RemoveBookmarks(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove document information.
+     */
+    get_RemoveDocumentInformation(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove document information.
+     * @param value <b>True</b> - command must remove document information; <b>false</b> - command must NOT remove document information.<br/ Default value is <b>false</b>.
+     */
+    set_RemoveDocumentInformation(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove embedded thumbnails.
+     */
+    get_RemoveEmbeddedThumbnails(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove embedded thumbnails.
+     * @param value <b>True</b> - command must remove embedded thumbnails; <b>false</b> - command must NOT remove embedded thumbnails.<br/ Default value is <b>false</b>.
+     */
+    set_RemoveEmbeddedThumbnails(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove metadata from PDF document.
+     */
+    get_RemoveMetadata(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove metadata from PDF document.
+     * @param value <b>True</b> - command must remove metadata from PDF document; <b>false</b> - command must NOT remove metadata from PDF document.<br/ Default value is <b>false</b>.
+     */
+    set_RemoveMetadata(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove embedded files.
+     */
+    get_RemoveEmbeddedFiles(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove embedded files.
+     * @param value <b>True</b> - command must remove embedded files; <b>false</b> - command must NOT remove embedded files.<br/ Default value is <b>false</b>.
+     */
+    set_RemoveEmbeddedFiles(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must cleanup content streams.
+     */
+    get_CleanupContentStreams(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must cleanup content streams.
+     * @param value <b>True</b> - command must cleanup content streams. <b>false</b> - command must NOT cleanup content streams.<br/ Default value is <b>true</b>.
+     */
+    set_CleanupContentStreams(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove unused named resources.
+     */
+    get_RemoveUnusedNamedResources(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove unused named resources.
+     * @param value <b>True</b> - command must remove unused named resources; <b>false</b> - command must NOT remove unused named resources.<br/ Default value is <b>true</b>.
+     */
+    set_RemoveUnusedNamedResources(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove unused names.
+     */
+    get_RemoveUnusedNames(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove unused names.
+     * @param value <b>True</b> - command must remove unused names; <b>false</b> - command must NOT remove unused names.<br/ Default value is <b>true</b>.
+     */
+    set_RemoveUnusedNames(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove unused pages.
+     */
+    get_RemoveUnusedPages(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove unused pages.
+     * @param value <b>True</b> - command must remove unused pages; <b>false</b> - command must NOT remove unused pages.<br/ Default value is <b>true</b>.
+     */
+    set_RemoveUnusedPages(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove duplicate resources from PDF document.
+     */
+    get_RemoveDuplicateResources(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove duplicate resources from PDF document.
+     * @param value <b>True</b> - command must remove duplicate resources from PDF document; <b>false</b> - command must NOT remove duplicate resources from PDF document.<br/ Default value is <b>true</b>.
+     */
+    set_RemoveDuplicateResources(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove invalid bookmarks.
+     */
+    get_RemoveInvalidBookmarks(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove invalid bookmarks.
+     * @param value <b>True</b> - command must remove invalid bookmarks; <b>false</b> - command must NOT remove invalid bookmarks.<br/ Default value is <b>true</b>.
+     */
+    set_RemoveInvalidBookmarks(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must remove invalid links.
+     */
+    get_RemoveInvalidLinks(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must remove invalid links.
+     * @param value <b>True</b> - command must remove invalid links; <b>false</b> - command must NOT remove invalid links.<br/ Default value is <b>true</b>.
+     */
+    set_RemoveInvalidLinks(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must subset fonts in PDF document.
+     */
+    get_SubsetFonts(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must subset fonts in PDF document.
+     * @param value <b>True</b> - command must subset fonts in PDF document; <b>false</b> - command must NOT subset fonts in PDF document.<br/ Default value is <b>false</b>.
+     */
+    set_SubsetFonts(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must optimize font subsets.
+     */
+    get_OptimizeFontSubsets(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must optimize font subsets.
+     * @param value <b>True</b> - command must optimize font subsets (several fonts, which are subsets of the same base font, will be merged into a single font); <b>false</b> - command must NOT optimize font subsets.<br/ Default value is <b>false</b>.
+     */
+    set_OptimizeFontSubsets(value: boolean): void;
+
+    /**
+     * Gets image compression for color images.
+     */
+    get_ColorImagesCompression(): Vintasoft.Imaging.Pdf.WebPdfCompressionEnumJS;
+
+    /**
+     * Sets image compression for color images.
+     * @param value The image compression for color images.<br /> Default value is WebPdfCompressionEnumJS.<b>Undefined</b>.
+     */
+    set_ColorImagesCompression(value: Vintasoft.Imaging.Pdf.WebPdfCompressionEnumJS): void;
+
+    /**
+     * Gets compression settings for color images.
+     */
+    get_ColorImagesCompressionSettings(): Vintasoft.Imaging.Pdf.WebPdfCompressionSettingsJS;
+
+    /**
+     * Sets compression settings for color images.
+     * @param value The compression settings for color images.
+     */
+    set_ColorImagesCompressionSettings(value: Vintasoft.Imaging.Pdf.WebPdfCompressionSettingsJS): void;
+
+    /**
+     * Gets compression resolution for color images.
+     */
+    get_ColorImagesCompressionResolution(): Vintasoft.Shared.WebResolutionJS;
+
+    /**
+     * Sets compression resolution for color images.
+     * @param value The compression resolution for color images.
+     */
+    set_ColorImagesCompressionResolution(value: Vintasoft.Shared.WebResolutionJS): void;
+
+    /**
+     * Gets the minimum resolution for color image when image must be compressed.
+     */
+    get_ColorImagesCompressionMinResolution(): Vintasoft.Shared.WebResolutionJS;
+
+    /**
+     * Sets the minimum resolution for color image when image must be compressed.
+     * @param value The minimum resolution for color image when image must be compressed.</br> N dpi - color image must be compressed if image resolution is greater or equal than N dpi.
+     */
+    set_ColorImagesCompressionMinResolution(value: Vintasoft.Shared.WebResolutionJS): void;
+
+    /**
+     * Gets image compression for bitonal images.
+     */
+    get_BitonalImagesCompression(): Vintasoft.Imaging.Pdf.WebPdfCompressionEnumJS;
+
+    /**
+     * Sets image compression for bitonal images.
+     * @param value The image compression for bitonal images.<br /> Default value is WebPdfCompressionEnumJS.<b>Undefined</b>.
+     */
+    set_BitonalImagesCompression(value: Vintasoft.Imaging.Pdf.WebPdfCompressionEnumJS): void;
+
+    /**
+     * Gets compression settings for bitonal images.
+     */
+    get_BitonalImagesCompressionSettings(): Vintasoft.Imaging.Pdf.WebPdfCompressionSettingsJS;
+
+    /**
+     * Sets compression settings for bitonal images.
+     * @param value The compression settings for bitonal images.
+     */
+    set_BitonalImagesCompressionSettings(value: Vintasoft.Imaging.Pdf.WebPdfCompressionSettingsJS): void;
+
+    /**
+     * Gets compression resolution for bitonal images.
+     */
+    get_BitonalImagesCompressionResolution(): Vintasoft.Shared.WebResolutionJS;
+
+    /**
+     * Sets compression resolution for bitonal images.
+     * @param value The compression resolution for bitonal images.
+     */
+    set_BitonalImagesCompressionResolution(value: Vintasoft.Shared.WebResolutionJS): void;
+
+    /**
+     * Gets the minimum resolution for bitonal image when image must be compressed.
+     */
+    get_BitonalImagesCompressionMinResolution(): Vintasoft.Shared.WebResolutionJS;
+
+    /**
+     * Sets the minimum resolution for bitonal image when image must be compressed.
+     * @param value The minimum resolution for bitonal image when image must be compressed.</br> N dpi - bitonal image must be compressed if image resolution is greater or equal than N dpi.
+     */
+    set_BitonalImagesCompressionMinResolution(value: Vintasoft.Shared.WebResolutionJS): void;
+
+    /**
+     * Gets image compression for grayscale images.
+     */
+    get_GrayscaleImagesCompression(): Vintasoft.Imaging.Pdf.WebPdfCompressionEnumJS;
+
+    /**
+     * Sets image compression for grayscale images.
+     * @param value The image compression for grayscale images.<br /> Default value is WebPdfCompressionEnumJS.<b>Undefined</b>.
+     */
+    set_GrayscaleImagesCompression(value: Vintasoft.Imaging.Pdf.WebPdfCompressionEnumJS): void;
+
+    /**
+     * Gets compression settings for grayscale images.
+     */
+    get_GrayscaleImagesCompressionSettings(): Vintasoft.Imaging.Pdf.WebPdfCompressionSettingsJS;
+
+    /**
+     * Sets compression settings for grayscale images.
+     * @param value The compression settings for grayscale images.
+     */
+    set_GrayscaleImagesCompressionSettings(value: Vintasoft.Imaging.Pdf.WebPdfCompressionSettingsJS): void;
+
+    /**
+     * Gets compression resolution for grayscale images.
+     */
+    get_GrayscaleImagesCompressionResolution(): Vintasoft.Shared.WebResolutionJS;
+
+    /**
+     * Sets compression resolution for grayscale images.
+     * @param value The compression resolution for grayscale images.
+     */
+    set_GrayscaleImagesCompressionResolution(value: Vintasoft.Shared.WebResolutionJS): void;
+
+    /**
+     * Gets the minimum resolution for grayscale image when image must be compressed.
+     */
+    get_GrayscaleImagesCompressionMinResolution(): Vintasoft.Shared.WebResolutionJS;
+
+    /**
+     * Sets the minimum resolution for grayscale image when image must be compressed.
+     * @param value The minimum resolution for grayscale image when image must be compressed.</br> N dpi - grayscale image must be compressed if image resolution is greater or equal than N dpi.
+     */
+    set_GrayscaleImagesCompressionMinResolution(value: Vintasoft.Shared.WebResolutionJS): void;
+
+    /**
+     * Gets image compression for indexed images.
+     */
+    get_IndexedImagesCompression(): Vintasoft.Imaging.Pdf.WebPdfCompressionEnumJS;
+
+    /**
+     * Sets image compression for indexed images.
+     * @param value The image compression for indexed images.<br /> Default value is WebPdfCompressionEnumJS.<b>Undefined</b>.
+     */
+    set_IndexedImagesCompression(value: Vintasoft.Imaging.Pdf.WebPdfCompressionEnumJS): void;
+
+    /**
+     * Gets compression settings for indexed images.
+     */
+    get_IndexedImagesCompressionSettings(): Vintasoft.Imaging.Pdf.WebPdfCompressionSettingsJS;
+
+    /**
+     * Sets compression settings for indexed images.
+     * @param value The compression settings for indexed images.
+     */
+    set_IndexedImagesCompressionSettings(value: Vintasoft.Imaging.Pdf.WebPdfCompressionSettingsJS): void;
+
+    /**
+     * Gets the downscale interpolation method for images.
+     */
+    get_DownscaleInterpolationMode(): Vintasoft.Imaging.WebImageInterpolationModeEnumJS;
+
+    /**
+     * Sets the downscale interpolation method for images.
+     * @param value The downscale interpolation method for images.<br /> Default value is WebImageInterpolationModeEnumJS.<b>HighQualityBicubic</b>.
+     */
+    set_DownscaleInterpolationMode(value: Vintasoft.Imaging.WebImageInterpolationModeEnumJS): void;
+
+    /**
+     * Gets a value indicating whether the command must analyze image resources, detect black white images and convert them to the black-white pixel format.
+     */
+    get_DetectBlackWhiteImageResources(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must analyze image resources, detect black white images and convert them to the black-white pixel format.
+     * @param value <b>True</b> - command must analyze image resources, detect black white images and convert them to the black-white pixel format; <b>false</b> - command must NOT detect black-white image resources.<br/ Default value is <b>false</b>.
+     */
+    set_DetectBlackWhiteImageResources(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must analyze image resources, detect grayscale images and convert them to the grayscale pixel format.
+     */
+    get_DetectGrayscaleImageResources(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must analyze image resources, detect grayscale images and convert them to the grayscale pixel format.
+     * @param value <b>True</b> - command must analyze image resources, detect grayscale images and convert them to the grayscale pixel format; <b>false</b> - command must NOT detect grayscale image resources.<br/ Default value is <b>false</b>.
+     */
+    set_DetectGrayscaleImageResources(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must analyze image resources, detect bitonal images and convert them to the bitonal pixel format.
+     */
+    get_DetectBitonalImageResources(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must analyze image resources, detect bitonal images and convert them to the bitonal pixel format.
+     * @param value <b>True</b> - command must analyze image resources, detect bitonal images and convert them to the bitonal pixel format; <b>false</b> - command must NOT detect bitonal image resources.<br/ Default value is <b>false</b>.
+     */
+    set_DetectBitonalImageResources(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must analyze image resources, detect indexed4 or indexed8 (16 or 256 colors) images and convert them to the indexed4 or indexed8 (16 or 256 colors) pixel format.
+     */
+    get_DetectIndexed8ImageResources(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must analyze image resources, detect indexed4 or indexed8 (16 or 256 colors) images and convert them to the indexed4 or indexed8 (16 or 256 colors) pixel format.
+     * @param value <b>True</b> - command must analyze image resources, detect indexed4 or indexed8 (16 or 256 colors) images and convert them to the indexed4 or indexed8 (16 or 256 colors) pixel format; <b>false</b> - command must NOT detect indexed4 or indexed8 (16 or 256 colors) image resources.<br/ Default value is <b>false</b>.
+     */
+    set_DetectIndexed8ImageResources(value: boolean): void;
+
+    /**
+     * Gets the maximum allowable inaccuracy, as distance in RGB888 color space, when comparing two colors.
+     */
+    get_ColorDepthDetectionMaxInaccuracy(): number;
+
+    /**
+     * Sets the maximum allowable inaccuracy, as distance in RGB888 color space, when comparing two colors.
+     * @param value Valid values are from 0 to 442.<br /> <br /> 0 means that command will search for unique colors in an image.<br /> Value from 1 to 442 means that command will search colors with permissible inaccuracy.<br /> Default value is <b>0</b>.
+     */
+    set_ColorDepthDetectionMaxInaccuracy(value: number): void;
+
+    /**
+     * Gets a value indicating whether the command must change PDF stream with LZW compression to Flate (ZIP) compression.
+     */
+    get_UseFlateInsteadLzwCompression(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must change PDF stream with LZW compression to Flate (ZIP) compression.
+     * @param value <b>True</b> - command must change PDF stream with LZW compression to Flate (ZIP) compression; <b>false</b> - command must NOT change PDF stream with LZW compression.<br/ Default value is <b>false</b>.
+     */
+    set_UseFlateInsteadLzwCompression(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must change uncompressed PDF stream to Flate (ZIP) compression.
+     */
+    get_UseFlateInsteadNoneCompression(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must change uncompressed PDF stream to Flate (ZIP) compression.
+     * @param value <b>True</b> - command must change uncompressed PDF stream to Flate (ZIP) compression; <b>false</b> - command must NOT change uncompressed PDF stream to Flate (ZIP) compression.<br/ Default value is <b>false</b>.
+     */
+    set_UseFlateInsteadNoneCompression(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether the command must recompress PDF stream with Flate (ZIP) compression.
+     */
+    get_RecompressFlateCompression(): boolean;
+
+    /**
+     * Sets a value indicating whether the command must recompress PDF stream with Flate (ZIP) compression.
+     * @param value <b>True</b> - command must recompress PDF stream with Flate (ZIP) compression; <b>false</b> - command must NOT recompress PDF stream with Flate (ZIP) compression; Default value is <b>false</b>.
+     */
+    set_RecompressFlateCompression(value: boolean): void;
+
+    /**
+     * Gets the Flate (ZIP) compression level.
+     */
+    get_FlateCompressionLevel(): number;
+
+    /**
+     * Sets the Flate (ZIP) compression level.
+     * @param value Possible values: from 0 to 9.<br /> 0 - no compression, 1 - best speed, 9 - best compression. <br /> Default value is <b>9</b>.
+     */
+    set_FlateCompressionLevel(value: number): void;
+
+    /**
+     * Gets a format of packed (output) PDF document.
+     */
+    get_DocumentPackFormat(): Vintasoft.Imaging.Pdf.WebPdfFormatJS;
+
+    /**
+     * Sets a format of packed (output) PDF document.
+     * @param value <format of packed (output) PDF document.<br /> Default value is <b>null</b>.
+     */
+    set_DocumentPackFormat(value: Vintasoft.Imaging.Pdf.WebPdfFormatJS): void;
+
+  }
+
+  /**
+   * The processing command that allows to compress a PDF document.
+   */
+  class WebPdfDocumentCompressorJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebPdfDocumentCompressorJS"] class.
+     */
+    constructor();
+
+    // PROPERTIES
+
+    /**
+     * Gets the settings for this PDF document compressor.
+     */
+    get_Settings(): Vintasoft.Imaging.Pdf.WebPdfDocumentCompressorSettingsJS;
+
+    /**
+     * Sets the settings for this PDF document compressor.
+     * @param value The settings for this PDF document compressor.
+     */
+    set_Settings(value: Vintasoft.Imaging.Pdf.WebPdfDocumentCompressorSettingsJS): void;
+
+    // METHODS
+
+    /**
+     * Sends an asynchronous request to compress a PDF file.
+     * @param fileId The name of PDF file that should be compressed.
+     * @param outFilename The output name of compressed PDF file.
+     * @param successFunc Function that will be executed if request is executed successfully. Here is function prototype "function __success(data)".<br/> The data parameter has the following properties:<br/> <ul> <li>fileId (string): The output name of compressed PDF file.</li> </ul>
+     * @param errorFunc Function that will be executed if request is failed. Here is function prototype "function __error(data)".<br/> The data parameter can be:<br/> <ol> <li>An object with following properties:<br/> <ul> <li>errorMessage (string): Error message.</li> <li>blocked (boolean): Indicates that the requested action is blocked by another request.</li> </ul> if exception is catched inside web service. </li> <li>Otherwise, jqXHR object.</li> </ol>
+     */
+    compressPdf(fileId: string, outFilename: string, successFunc: Function, errorFunc: Function): void;
+
+  }
+
+}
+
+// NAMESPACE
+declare module Vintasoft.Imaging.Pdf.UI {
+
+  // ===== CLASSES =====
+
+  /**
+   * Represents settings of [see="WebPdfDocumentEditorControlJS"] object.
+   */
+  class WebPdfDocumentEditorControlSettingsJS extends Vintasoft.Imaging.UI.UIElements.WebUiControlSettingsJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebPdfDocumentEditorControlSettingsJS"] class.
+     * @param containerId An identifier of the page element, where the PDF document editor must be placed.
+     * @param localizationId A localization identifier for [see="WebPdfDocumentEditorControlJS"] object.
+     */
+    constructor(containerId: string, localizationId: string);
+
+    /**
+     * Initializes a new instance of the [see= "WebPdfDocumentEditorControlSettingsJS"] class.
+     * @param containerId An identifier of the page element, where the PDF document editor must be placed.
+     */
+    constructor(containerId: string);
+
+    // PROPERTIES
+
+    /**
+     * Gets a value indicating whether web PDF document editor has button that allows to add file to the editor.
+     */
+    get_CanAddFile(): boolean;
+
+    /**
+     * Sets a value indicating whether web PDF document editor has button that allows to add file to the editor.
+     * @param value A value indicating whether web PDF document editor has button that allows to add file to the editor.
+     */
+    set_CanAddFile(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether web PDF document editor allows to resize the side panel.
+     */
+    get_CanResizeSidePanel(): boolean;
+
+    /**
+     * Sets a value indicating whether web PDF document editor allows to resize the side panel.
+     * @param value A value indicating whether web PDF document editor allows to resize the side panel.
+     */
+    set_CanResizeSidePanel(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether web PDF document editor should show the "Redaction" menu.
+     */
+    get_ShowRedactionMenu(): boolean;
+
+    /**
+     * Sets a value indicating whether web PDF document editor should show the "Redaction" menu.
+     * @param value A value indicating whether web PDF document editor should show the "Redaction" menu.
+     */
+    set_ShowRedactionMenu(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether web PDF document editor should show the "Text selection" side panel.
+     */
+    get_ShowTextSelectionSidePanel(): boolean;
+
+    /**
+     * Sets a value indicating whether web PDF document editor should show the "Text selection" side panel.
+     * @param value A value indicating whether web PDF document editor should show the "Text selection" side panel.
+     */
+    set_ShowTextSelectionSidePanel(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether web PDF document editor should show the "Search text" side panel.
+     */
+    get_ShowTextSearchSidePanel(): boolean;
+
+    /**
+     * Sets a value indicating whether web PDF document editor should show the "Search text" side panel.
+     * @param value A value indicating whether web PDF document editor should show the "Search text" side panel.
+     */
+    set_ShowTextSearchSidePanel(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether web PDF document editor should show the "PDF image-resources" side panel.
+     */
+    get_ShowPdfImageResourceListSidePanel(): boolean;
+
+    /**
+     * Sets a value indicating whether web PDF document editor should show the "PDF image-resources" side panel.
+     * @param value A value indicating whether web PDF document editor should show the "PDF image-resources" side panel.
+     */
+    set_ShowPdfImageResourceListSidePanel(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether web PDF document editor should show the "Interactive fields" side panel.
+     */
+    get_ShowInteractiveFieldListSidePanel(): boolean;
+
+    /**
+     * Sets a value indicating whether web PDF document editor should show the "Interactive fields" side panel.
+     * @param value A value indicating whether web PDF document editor should show the "Interactive fields" side panel.
+     */
+    set_ShowInteractiveFieldListSidePanel(value: boolean): void;
+
+    /**
+     * Gets a value indicating whether web PDF document editor should show the "Redaction marks" side panel.
+     */
+    get_ShowRedactionMarkListSidePanel(): boolean;
+
+    /**
+     * Sets a value indicating whether web PDF document editor should show the "Redaction marks" side panel.
+     * @param value A value indicating whether web PDF document editor should show the "Redaction marks" side panel.
+     */
+    set_ShowRedactionMarkListSidePanel(value: boolean): void;
+
+  }
+
+  /**
+   * A JavaScript UI control that allows to view, print, redact, verify, convert, save PDF document in HTML5 web browser.
+   */
+  class WebPdfDocumentEditorControlJS extends Vintasoft.Imaging.UI.WebDocumentViewerBaseJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebPdfDocumentEditorControlJS"] class.
+     * @param settings An instance of [see="WebPdfDocumentEditorControlSettingsJS"] class.
+     */
+    constructor(settings: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlSettingsJS);
+
+    // PROPERTIES
+
+    /**
+     * Gets the localization identifier of UI element.
+     */
+    get_LocalizationId(): string;
+
+    /**
+     * Gets opened PDF documents.
+     */
+    get_OpenedPdfDocuments(): Vintasoft.Imaging.Pdf.WebPdfDocumentJS[];
+
+    // METHODS
+
+    /**
+     * Saves changes in a file that was previously opened using the [see="WebDocumentViewerBaseJS.openFile"] or [see="WebDocumentViewerBaseJS.openFileWithAuthentication"] function.
+     * @param successFunc Function that will be executed if request is executed successfully.<br /> Here is function prototype "function __success(data)".<br /> The data parameter has the following properties:<br /> <ul> <li>fileId (string): A file identifier.</li> </ul>
+     * @param errorFunc Function that will be executed if request is failed.<br /> Here is function prototype "function __error(data)".<br /> The data parameter can be:<br /> <ol> <li>An object with following properties:<br /> <ul> <li>errorMessage (string): Error message.</li> <li>blocked (boolean): Indicates that the requested action is blocked by another request.</li> </ul> if exception is catched inside web service. </li> <li>Otherwise, jqXHR object.</li> </ol>
+     */
+    saveChanges(successFunc: Function, errorFunc: Function): void;
+
+    /**
+     * Saves changes in a file that was previously opened using the [see="WebDocumentViewerBaseJS.openFile"] or [see="WebDocumentViewerBaseJS.openFileWithAuthentication"] function.
+     * @param successFunc Function that will be executed if request is executed successfully.<br /> Here is function prototype "function __success(data)".<br /> The data parameter has the following properties:<br /> <ul> <li>fileId (string): A file identifier.</li> </ul>
+     */
+    saveChanges(successFunc: Function): void;
+
+    /**
+     * Saves changes in a file that was previously opened using the [see="WebDocumentViewerBaseJS.openFile"] or [see="WebDocumentViewerBaseJS.openFileWithAuthentication"] function.
+     */
+    saveChanges(): void;
+
+  }
+
+}
+
+// NAMESPACE
+declare module Vintasoft.Imaging.Pdf.UI.Panels {
+
+  // ===== CLASSES =====
+
+  /**
+   * A web UI panel that allows to view PDF bookmarks and navigate PDF document using bookmarks.
+   */
+  class WebUiPdfBookmarksPanelJS extends Vintasoft.Imaging.UI.Panels.WebUiPanelWithContextMenuJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfBookmarksPanelJS"] class.
+     * @param settings The settings of the panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     * @param stateButton The [see="WebUiElementJS"] object, which defines button, which allows to change the panel state.
+     */
+    constructor(settings: object, stateButton: Vintasoft.Imaging.UI.UIElements.WebUiElementJS);
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfBookmarksPanelJS"] class.
+     * @param settings The settings of the panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     */
+    constructor(settings: object);
+
+  }
+
+  /**
+   * A web UI panel that shows the list of all image-resources associated with PDF page.
+   */
+  class WebUiPdfImageResourceExtractionPanelJS extends Vintasoft.Imaging.UI.Panels.WebUiPanelWithContextMenuJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfImageResourceExtractionPanelJS"] class.
+     * @param settings The settings of the panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     * @param stateButton The [see="WebUiElementJS"] object, which defines button, which allows to change the panel state.
+     */
+    constructor(settings: object, stateButton: Vintasoft.Imaging.UI.UIElements.WebUiElementJS);
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfImageResourceExtractionPanelJS"] class.
+     * @param settings The settings of the panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     */
+    constructor(settings: object);
+
+    // PROPERTIES
+
+    /**
+     * Gets a function, which returns description for [see="WebContentImageJS"] object.
+     */
+    get_ContentImageDescriptionCallback(): Function;
+
+    /**
+     * Sets a function, which returns description for [see="WebContentImageJS"] object.
+     * @param value A function, which returns description for [see="WebContentImageJS"] object, OR "null".<br /> Here is function prototype "function __getDescriptionForContentImage(contentImage)", where "contentImage" parameter is an instance of [see="WebContentImageJS"] type. <b>Important:</b> "__getDescriptionForContentImage" function must return string which contains description of content image.
+     */
+    set_ContentImageDescriptionCallback(value: Function): void;
+
+    // METHODS
+
+    /**
+     * Destroys this UI element.
+     */
+    destroy(): void;
+
+  }
+
+  /**
+   * A web UI panel that shows the list of all interactive fields associated with opened PDF pages.
+   */
+  class WebUiPdfInteractiveFormFieldsPanelJS extends Vintasoft.Imaging.UI.Panels.WebUiPanelWithContextMenuJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfInteractiveFormFieldsPanelJS"] class.
+     * @param settings The settings of the panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     * @param stateButton The [see="WebUiElementJS"] object, which defines button, which allows to change the panel state.
+     */
+    constructor(settings: object, stateButton: Vintasoft.Imaging.UI.UIElements.WebUiElementJS);
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfInteractiveFormFieldsPanelJS"] class.
+     * @param settings The settings of the panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     */
+    constructor(settings: object);
+
+    // PROPERTIES
+
+    /**
+     * Gets a function, which returns UI elements for the interaction field list record.
+     */
+    get_CreateInteractionFieldContentCallback(): Function;
+
+    /**
+     * Sets a function, which returns UI elements for the interaction field list record.
+     * @param value A function, which returns UI elements for the interaction field list record, OR "null".<br /> Here is function prototype "function __createFieldContent(field)", where "field" parameter is an instance of [see="WebPdfInteractiveFormFieldJS"] type. <b>Important:</b> "__createFieldContent" function must return not empty array of [see="WebUiElementJS"] objects.
+     */
+    set_CreateInteractionFieldContentCallback(value: Function): void;
+
+    /**
+     * Gets a function, which returns UI elements for the header of page interactive fields collection.
+     */
+    get_CreatePageFieldsHeaderContentCallback(): Function;
+
+    /**
+     * Sets a function, which returns UI elements for the header of page interactive fields collection.
+     * @param value A function, which returns UI elements for the header of page interactive fields collection, OR "null".<br /> Here is function prototype "function __createPageFieldsHeaderCallback(image, index)", where "image" parameter is an instance of [see="WebImageJS"] type, index - zero-based index of image in image collection. <b>Important:</b> "__createPageFieldsHeaderCallback" function must return not empty array of [see="WebUiElementJS"] objects.
+     */
+    set_CreatePageFieldsHeaderContentCallback(value: Function): void;
+
+    // METHODS
+
+    /**
+     * Destroys this UI element.
+     */
+    destroy(): void;
+
+  }
+
+  /**
+   * A web UI panel that allows to view and edit the appearance of PDF redaction mark.
+   */
+  class WebUiPdfRedactionMarkAppearancePanelJS extends Vintasoft.Imaging.UI.UIElements.WebUiElementContainerJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfRedactionMarkAppearancePanelJS"] class.
+     * @param settings The settings of panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     */
+    constructor(settings: object);
+
+    // METHODS
+
+    /**
+     * Creates and returns markup of UI element.
+     * @param floatContainer A DOM-element, where floating elements must be placed.
+     */
+    render(floatContainer: object): object;
+
+    /**
+     * Creates and returns markup of UI element.
+     */
+    render(): object;
+
+  }
+
+  /**
+   * A web UI panel that allows to view and edit the settings of PDF redaction mark.
+   */
+  class WebUiPdfRedactionMarkSettingsPanelJS extends Vintasoft.Imaging.UI.UIElements.WebUiElementContainerJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfRedactionMarkSettingsPanelJS"] class.
+     * @param settings The settings of panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     * @param pdfRedactionMark Redaction mark, which settings should be shown in dialog.
+     */
+    constructor(settings: object, pdfRedactionMark: object);
+
+    // METHODS
+
+    /**
+     * Creates and returns markup of UI element.
+     * @param floatContainer A DOM-element, where floating elements must be placed.
+     */
+    render(floatContainer: object): object;
+
+    /**
+     * Creates and returns markup of UI element.
+     */
+    render(): object;
+
+  }
+
+  /**
+   * A web UI panel that allows to view the PDF redaction marks list and navigate between redaction marks.
+   */
+  class WebUiPdfRedactionMarkListPanelJS extends Vintasoft.Imaging.UI.Panels.WebUiPanelWithContextMenuJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfRedactionMarkListPanelJS"] class.
+     * @param settings The settings of the panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     * @param stateButton The [see="WebUiElementJS"] object, which defines button, which allows to change the panel state.
+     */
+    constructor(settings: object, stateButton: Vintasoft.Imaging.UI.UIElements.WebUiElementJS);
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfRedactionMarkListPanelJS"] class.
+     * @param settings The settings of the panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     */
+    constructor(settings: object);
+
+    // PROPERTIES
+
+    /**
+     * Gets a function, which returns UI elements for the redaction marks list record.
+     */
+    get_CreateRedactionMarkContentCallback(): Function;
+
+    /**
+     * Sets a function, which returns UI elements for the redaction marks list record.
+     * @param value A function, which returns UI elements for the redaction marks list record, OR "null".<br /> Here is function prototype "function __createRedactionMarkContent(mark, markCollection)", where "mark" parameter is an instance of [see="WebPdfRedactionMarkJS"] type, "markCollection" parameter is an instance of [see="WebPdfRedactionMarkCollectionJS"] type.<br /> <b>Important:</b> "__createRedactionMarkContent" function must return not empty array of [see="WebUiElementJS"] objects.
+     */
+    set_CreateRedactionMarkContentCallback(value: Function): void;
+
+    /**
+     * Gets a function, which returns UI elements for the header of marks collection in redaction marks list panel.
+     */
+    get_CreateCollectionHeaderContentCallback(): Function;
+
+    /**
+     * Sets a function, which returns UI elements for the header of marks collection in redaction marks list panel.
+     * @param value A function, which returns UI elements for the header of marks collection in redaction marks list panel, OR "null".<br /> Here is function prototype "function __createMarksCollectionHeaderContent(markCollection, index)", where "markCollection" parameter is an instance of [see="WebPdfRedactionMarkCollectionJS"] type, index - zero-based index of redaction marks collection.<br /> <b>Important:</b> "__createMarksCollectionHeaderContent" function must return not empty array of [see="WebUiElementJS"] objects.
+     */
+    set_CreateCollectionHeaderContentCallback(value: Function): void;
+
+    // METHODS
+
+    /**
+     * Destroys this UI element.
+     */
+    destroy(): void;
+
+  }
+
+  /**
+   * A web UI panel that allows to view information about a PDF image resource.
+   */
+  class WebUiPdfImageResourcePanelJS extends Vintasoft.Imaging.UI.UIElements.WebUiElementContainerJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfImageResourcePanelJS"] class.
+     * @param settings The settings of panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     * @param image An instance of [see="WebContentImageJS"] class.
+     */
+    constructor(settings: object, image: object);
+
+    // METHODS
+
+    /**
+     * Creates and returns markup of UI element.
+     * @param floatContainer A DOM-element, where floating elements must be placed.
+     */
+    render(floatContainer: object): object;
+
+    /**
+     * Creates and returns markup of UI element.
+     */
+    render(): object;
+
+  }
+
+  /**
+   * A web UI panel that allows to convert a PDF document to a PDF/A format or verify PDF document for conformance to PDF/A format.
+   */
+  class WebUiPdfAConversionAndValidationPanelJS extends Vintasoft.Imaging.UI.UIElements.WebUiElementContainerJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfAConversionAndValidationPanelJS"] class.
+     * @param settings The settings of panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     */
+    constructor(settings: object);
+
+    // METHODS
+
+    /**
+     * Converts PDF document, which is loaded in web document viewer, to a PDF/A format.
+     */
+    convertToPdfA(): void;
+
+    /**
+     * Validates PDF document, which is loaded in web document viewer, for conformance to PDF/A format.
+     */
+    validatePdfA(): void;
+
+  }
+
+  /**
+   * A web UI panel that allows to compress a PDF document.
+   */
+  class WebUiPdfDocumentCompressorPanelJS extends Vintasoft.Imaging.UI.UIElements.WebUiElementContainerJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebUiPdfDocumentCompressorPanelJS"] class.
+     * @param settings The settings of panel. The settings parameter has the following properties: <br/> <ul> <li>cssClass (string): CSS class or classes that will be applied to the element. Example: "cssClass:'button remove'".</li> <li>css (object): Object, which contains the names and values of CSS properties. Example: "css:{'width':'100px', 'height':'50px'}".</li> <li>properties (object): Object, which contains the names and values of element attributes. Example: "properties:{'title':'Hello', 'id':'helloId'}" </li> <li>events (object): Object, which contains the callbacks of events. Each object property has the following parameters:<br /> <ul> <li>Property name - event name (Example: "click", "change", "mouseover" etc ).</li> <li>Property value - event callback OR object - {callback:callback, data: Object, that contains additional data that will be passed to the callback}.</li> </ul> Example:"events:{'click':function(){console.log('click');}, 'change':{callback:function(){console.log('change');}, data:{x:11} } }". </li> <li>states (object): <b>Important:</b> This value will be ignored - see remarks.</li> <li>title (string): Shortcut for 'title' attribute of element (equals - "properties:{'title':'some title'}"). <b>Important:</b> If 'states' is defined and active state [see="WebUiElementJS.get_ActiveState"] has title, the UI element will have title of active state. </li> <li>id (string): Shortcut for 'id' attribute of element (equals - "properties:{'id':'elementId'}").</li> <li>onClick (object): Shortcut for 'click' event callback.</li> <li>onChange (object): Shortcut for 'change' event callback.</li> <li>localizationId (string): Unique localization ID.</li> </ul>
+     */
+    constructor(settings: object);
+
+    // METHODS
+
+    /**
+     * Creates and returns markup of UI element.
+     * @param floatContainer A DOM-element, where floating elements must be placed.
+     */
+    render(floatContainer: object): object;
+
+    /**
+     * Creates and returns markup of UI element.
+     */
+    render(): object;
+
+    /**
+     * Starts an asynchronous operation that compresses a PDF document, which is loaded in web document viewer.
+     */
+    compressPdf(): void;
+
+    /**
+     * Downloads the last compressed PDF document from server and allows user to save PDF document in web browser.
+     */
+    saveCompressedFile(): void;
+
+  }
+
 }
 
 // NAMESPACE
@@ -2111,7 +3220,7 @@ declare module Vintasoft.Imaging.Pdf.UI.VisualTools {
   }
 
   /**
-   * Represents a visual tool that allows to select and extract images, which are located on PDF page.
+   * Represents a visual tool that allows to select and extract image-resources, which are located on PDF page.
    */
   class WebPdfImageExtractorToolJS extends Vintasoft.Imaging.Pdf.UI.VisualTools.WebPdfVisualToolJS {
 
@@ -2204,8 +3313,9 @@ declare module Vintasoft.Imaging.Pdf.UI.VisualTools {
      * Initializes a new instance of the [see= "WebPdfTextRedactionMarkJS"] class.
      * @param image The image associated with PDF page.
      * @param textRegion The text region of redaction mark.
+     * @param pdfDocumentEditorControl The PDF document editor control.
      */
-    constructor(image: Vintasoft.Shared.WebImageJS, textRegion: Vintasoft.Imaging.WebTextRegionJS);
+    constructor(image: Vintasoft.Shared.WebImageJS, textRegion: Vintasoft.Imaging.WebTextRegionJS, pdfDocumentEditorControl: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlJS);
 
     // PROPERTIES
 
