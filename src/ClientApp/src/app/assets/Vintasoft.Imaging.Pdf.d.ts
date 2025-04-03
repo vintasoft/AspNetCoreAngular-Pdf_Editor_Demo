@@ -74,7 +74,7 @@ declare module Vintasoft.Imaging.Pdf {
   }
 
   /**
-   * Specifies available barcode symbology types for barcode field.
+   * Specifies available barcode symbology types for barcode field. Barcode symbology types are defined in PDF Reference 1.7 Extension Level 3.
    */
   class WebBarcodeSymbologyTypeEnumJS extends Vintasoft.Shared.WebEnumItemBaseJS {
 
@@ -2209,7 +2209,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove annotations.
-     * @param value <b>True</b> - command must remove annotations; <b>false</b> - command must NOT remove annotations.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must remove annotations; <b>false</b> - command must NOT remove annotations.<br/> Default value is <b>false</b>.
      */
     set_RemoveAnnotations(value: boolean): void;
 
@@ -2220,7 +2220,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove structure tree.
-     * @param value <b>True</b> - command must remove structure tree; <b>false</b> - command must NOT remove structure tree.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must remove structure tree; <b>false</b> - command must NOT remove structure tree.<br/> Default value is <b>false</b>.
      */
     set_RemoveStructureTree(value: boolean): void;
 
@@ -2231,7 +2231,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove interactive forms.
-     * @param value <b>True</b> - command must remove interactive forms; <b>false</b> - command must NOT remove interactive forms.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must remove interactive forms; <b>false</b> - command must NOT remove interactive forms.<br/> Default value is <b>false</b>.
      */
     set_RemoveInteractiveForm(value: boolean): void;
 
@@ -2242,7 +2242,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove bookmarks.
-     * @param value <b>True</b> - command must remove bookmarks; <b>false</b> - command must NOT remove bookmarks.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must remove bookmarks; <b>false</b> - command must NOT remove bookmarks.<br/> Default value is <b>false</b>.
      */
     set_RemoveBookmarks(value: boolean): void;
 
@@ -2253,7 +2253,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove document information.
-     * @param value <b>True</b> - command must remove document information; <b>false</b> - command must NOT remove document information.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must remove document information; <b>false</b> - command must NOT remove document information.<br/> Default value is <b>false</b>.
      */
     set_RemoveDocumentInformation(value: boolean): void;
 
@@ -2264,7 +2264,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove embedded thumbnails.
-     * @param value <b>True</b> - command must remove embedded thumbnails; <b>false</b> - command must NOT remove embedded thumbnails.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must remove embedded thumbnails; <b>false</b> - command must NOT remove embedded thumbnails.<br/> Default value is <b>false</b>.
      */
     set_RemoveEmbeddedThumbnails(value: boolean): void;
 
@@ -2275,7 +2275,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove metadata from PDF document.
-     * @param value <b>True</b> - command must remove metadata from PDF document; <b>false</b> - command must NOT remove metadata from PDF document.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must remove metadata from PDF document; <b>false</b> - command must NOT remove metadata from PDF document.<br/> Default value is <b>false</b>.
      */
     set_RemoveMetadata(value: boolean): void;
 
@@ -2286,7 +2286,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove embedded files.
-     * @param value <b>True</b> - command must remove embedded files; <b>false</b> - command must NOT remove embedded files.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must remove embedded files; <b>false</b> - command must NOT remove embedded files.<br/> Default value is <b>false</b>.
      */
     set_RemoveEmbeddedFiles(value: boolean): void;
 
@@ -2297,7 +2297,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must cleanup content streams.
-     * @param value <b>True</b> - command must cleanup content streams. <b>false</b> - command must NOT cleanup content streams.<br/ Default value is <b>true</b>.
+     * @param value <b>True</b> - command must cleanup content streams. <b>false</b> - command must NOT cleanup content streams.<br/> Default value is <b>true</b>.
      */
     set_CleanupContentStreams(value: boolean): void;
 
@@ -2308,7 +2308,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove unused named resources.
-     * @param value <b>True</b> - command must remove unused named resources; <b>false</b> - command must NOT remove unused named resources.<br/ Default value is <b>true</b>.
+     * @param value <b>True</b> - command must remove unused named resources; <b>false</b> - command must NOT remove unused named resources.<br/> Default value is <b>true</b>.
      */
     set_RemoveUnusedNamedResources(value: boolean): void;
 
@@ -2319,7 +2319,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove unused names.
-     * @param value <b>True</b> - command must remove unused names; <b>false</b> - command must NOT remove unused names.<br/ Default value is <b>true</b>.
+     * @param value <b>True</b> - command must remove unused names; <b>false</b> - command must NOT remove unused names.<br/> Default value is <b>true</b>.
      */
     set_RemoveUnusedNames(value: boolean): void;
 
@@ -2330,7 +2330,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove unused pages.
-     * @param value <b>True</b> - command must remove unused pages; <b>false</b> - command must NOT remove unused pages.<br/ Default value is <b>true</b>.
+     * @param value <b>True</b> - command must remove unused pages; <b>false</b> - command must NOT remove unused pages.<br/> Default value is <b>true</b>.
      */
     set_RemoveUnusedPages(value: boolean): void;
 
@@ -2341,7 +2341,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove duplicate resources from PDF document.
-     * @param value <b>True</b> - command must remove duplicate resources from PDF document; <b>false</b> - command must NOT remove duplicate resources from PDF document.<br/ Default value is <b>true</b>.
+     * @param value <b>True</b> - command must remove duplicate resources from PDF document; <b>false</b> - command must NOT remove duplicate resources from PDF document.<br/> Default value is <b>true</b>.
      */
     set_RemoveDuplicateResources(value: boolean): void;
 
@@ -2352,7 +2352,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove invalid bookmarks.
-     * @param value <b>True</b> - command must remove invalid bookmarks; <b>false</b> - command must NOT remove invalid bookmarks.<br/ Default value is <b>true</b>.
+     * @param value <b>True</b> - command must remove invalid bookmarks; <b>false</b> - command must NOT remove invalid bookmarks.<br/> Default value is <b>true</b>.
      */
     set_RemoveInvalidBookmarks(value: boolean): void;
 
@@ -2363,7 +2363,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must remove invalid links.
-     * @param value <b>True</b> - command must remove invalid links; <b>false</b> - command must NOT remove invalid links.<br/ Default value is <b>true</b>.
+     * @param value <b>True</b> - command must remove invalid links; <b>false</b> - command must NOT remove invalid links.<br/> Default value is <b>true</b>.
      */
     set_RemoveInvalidLinks(value: boolean): void;
 
@@ -2374,7 +2374,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must subset fonts in PDF document.
-     * @param value <b>True</b> - command must subset fonts in PDF document; <b>false</b> - command must NOT subset fonts in PDF document.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must subset fonts in PDF document; <b>false</b> - command must NOT subset fonts in PDF document.<br/> Default value is <b>false</b>.
      */
     set_SubsetFonts(value: boolean): void;
 
@@ -2385,7 +2385,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must optimize font subsets.
-     * @param value <b>True</b> - command must optimize font subsets (several fonts, which are subsets of the same base font, will be merged into a single font); <b>false</b> - command must NOT optimize font subsets.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must optimize font subsets (several fonts, which are subsets of the same base font, will be merged into a single font); <b>false</b> - command must NOT optimize font subsets.<br/> Default value is <b>false</b>.
      */
     set_OptimizeFontSubsets(value: boolean): void;
 
@@ -2429,7 +2429,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets the minimum resolution for color image when image must be compressed.
-     * @param value The minimum resolution for color image when image must be compressed.</br> N dpi - color image must be compressed if image resolution is greater or equal than N dpi.
+     * @param value The minimum resolution for color image when image must be compressed.<br/> N dpi - color image must be compressed if image resolution is greater or equal than N dpi.
      */
     set_ColorImagesCompressionMinResolution(value: Vintasoft.Shared.WebResolutionJS): void;
 
@@ -2473,7 +2473,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets the minimum resolution for bitonal image when image must be compressed.
-     * @param value The minimum resolution for bitonal image when image must be compressed.</br> N dpi - bitonal image must be compressed if image resolution is greater or equal than N dpi.
+     * @param value The minimum resolution for bitonal image when image must be compressed.<br/> N dpi - bitonal image must be compressed if image resolution is greater or equal than N dpi.
      */
     set_BitonalImagesCompressionMinResolution(value: Vintasoft.Shared.WebResolutionJS): void;
 
@@ -2517,7 +2517,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets the minimum resolution for grayscale image when image must be compressed.
-     * @param value The minimum resolution for grayscale image when image must be compressed.</br> N dpi - grayscale image must be compressed if image resolution is greater or equal than N dpi.
+     * @param value The minimum resolution for grayscale image when image must be compressed.<br/> N dpi - grayscale image must be compressed if image resolution is greater or equal than N dpi.
      */
     set_GrayscaleImagesCompressionMinResolution(value: Vintasoft.Shared.WebResolutionJS): void;
 
@@ -2561,7 +2561,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must analyze image resources, detect black white images and convert them to the black-white pixel format.
-     * @param value <b>True</b> - command must analyze image resources, detect black white images and convert them to the black-white pixel format; <b>false</b> - command must NOT detect black-white image resources.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must analyze image resources, detect black white images and convert them to the black-white pixel format; <b>false</b> - command must NOT detect black-white image resources.<br/> Default value is <b>false</b>.
      */
     set_DetectBlackWhiteImageResources(value: boolean): void;
 
@@ -2572,7 +2572,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must analyze image resources, detect grayscale images and convert them to the grayscale pixel format.
-     * @param value <b>True</b> - command must analyze image resources, detect grayscale images and convert them to the grayscale pixel format; <b>false</b> - command must NOT detect grayscale image resources.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must analyze image resources, detect grayscale images and convert them to the grayscale pixel format; <b>false</b> - command must NOT detect grayscale image resources.<br/> Default value is <b>false</b>.
      */
     set_DetectGrayscaleImageResources(value: boolean): void;
 
@@ -2583,7 +2583,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must analyze image resources, detect bitonal images and convert them to the bitonal pixel format.
-     * @param value <b>True</b> - command must analyze image resources, detect bitonal images and convert them to the bitonal pixel format; <b>false</b> - command must NOT detect bitonal image resources.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must analyze image resources, detect bitonal images and convert them to the bitonal pixel format; <b>false</b> - command must NOT detect bitonal image resources.<br/> Default value is <b>false</b>.
      */
     set_DetectBitonalImageResources(value: boolean): void;
 
@@ -2594,7 +2594,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must analyze image resources, detect indexed4 or indexed8 (16 or 256 colors) images and convert them to the indexed4 or indexed8 (16 or 256 colors) pixel format.
-     * @param value <b>True</b> - command must analyze image resources, detect indexed4 or indexed8 (16 or 256 colors) images and convert them to the indexed4 or indexed8 (16 or 256 colors) pixel format; <b>false</b> - command must NOT detect indexed4 or indexed8 (16 or 256 colors) image resources.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must analyze image resources, detect indexed4 or indexed8 (16 or 256 colors) images and convert them to the indexed4 or indexed8 (16 or 256 colors) pixel format; <b>false</b> - command must NOT detect indexed4 or indexed8 (16 or 256 colors) image resources.<br/> Default value is <b>false</b>.
      */
     set_DetectIndexed8ImageResources(value: boolean): void;
 
@@ -2616,7 +2616,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must change PDF stream with LZW compression to Flate (ZIP) compression.
-     * @param value <b>True</b> - command must change PDF stream with LZW compression to Flate (ZIP) compression; <b>false</b> - command must NOT change PDF stream with LZW compression.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must change PDF stream with LZW compression to Flate (ZIP) compression; <b>false</b> - command must NOT change PDF stream with LZW compression.<br/> Default value is <b>false</b>.
      */
     set_UseFlateInsteadLzwCompression(value: boolean): void;
 
@@ -2627,7 +2627,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a value indicating whether the command must change uncompressed PDF stream to Flate (ZIP) compression.
-     * @param value <b>True</b> - command must change uncompressed PDF stream to Flate (ZIP) compression; <b>false</b> - command must NOT change uncompressed PDF stream to Flate (ZIP) compression.<br/ Default value is <b>false</b>.
+     * @param value <b>True</b> - command must change uncompressed PDF stream to Flate (ZIP) compression; <b>false</b> - command must NOT change uncompressed PDF stream to Flate (ZIP) compression.<br/> Default value is <b>false</b>.
      */
     set_UseFlateInsteadNoneCompression(value: boolean): void;
 
@@ -2660,7 +2660,7 @@ declare module Vintasoft.Imaging.Pdf {
 
     /**
      * Sets a format of packed (output) PDF document.
-     * @param value <format of packed (output) PDF document.<br /> Default value is <b>null</b>.
+     * @param value Format of packed (output) PDF document.<br /> Default value is <b>null</b>.
      */
     set_DocumentPackFormat(value: Vintasoft.Imaging.Pdf.WebPdfFormatJS): void;
 
