@@ -742,6 +742,65 @@ declare module Vintasoft.Imaging.Pdf {
   }
 
   /**
+   * Represents a text block that is located on PDF page.
+   */
+  class WebPdfTextBlockJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebPdfTextBlockJS"] class.
+     * @param number The number of this text block.
+     * @param textContent The text content of this text block.
+     * @param htmlContent The HTML content of this text block.
+     * @param region Region of text content in coordinates of PDF page.
+     */
+    constructor(number: number, textContent: string, htmlContent: string, region: object);
+
+    // PROPERTIES
+
+    /**
+     * Gets text content of this text content.
+     */
+    get_Number(): string;
+
+    /**
+     * Gets text content of this text content.
+     */
+    get_TextContent(): string;
+
+    /**
+     * Gets HTML content of this text block.
+     */
+    get_HtmlContent(): string;
+
+    /**
+     * Gets a region of this text block in PDF page space.
+     */
+    get_Region(): object;
+
+    /**
+     * Gets a value indicating whether this text block is deleted.
+     */
+    get_IsDeleted(): boolean;
+
+    /**
+     * Gets a value indicating whether content of this text block is changed.
+     */
+    get_IsContentChanged(): boolean;
+
+    // METHODS
+
+    /**
+     * Returns a value indicating whether this text block contains specified point.
+     * @param point Point in coordinate system of PDF page.
+     * @param canResizeSelectedText A value indicating whether the resize points must be taken into account.
+     */
+    containsPoint(point: object, canResizeSelectedText: boolean): boolean;
+
+  }
+
+  /**
    * Represents a bookmark of PDF document.
    */
   class WebPdfBookmarkJS extends Vintasoft.Imaging.Pdf.WebPdfTreeNodeBaseJS {
@@ -1150,29 +1209,34 @@ declare module Vintasoft.Imaging.Pdf {
     // METHODS
 
     /**
-     * Returns all image resources associated with this PDF page.
+     * Returns all content images, which are located on this PDF page.
      */
     getContentImages(): Vintasoft.Imaging.Pdf.WebContentImageJS[];
 
     /**
-     * Determines that content images are received.
+     * Returns a value indicating whether information about content images is received.
      */
     isContentImagesReceived(): boolean;
 
     /**
-     * Returns all links associated with this PDF page.
+     * Returns all text blocks, which are located on this PDF page.
+     */
+    getTextBlocks(): Vintasoft.Imaging.Pdf.WebContentImageJS[];
+
+    /**
+     * Returns a value indicating whether information about text blocks is received.
+     */
+    isTextBlocksReceived(): boolean;
+
+    /**
+     * Returns all links, which are associated with this PDF page.
      */
     getLinks(): Vintasoft.Imaging.Pdf.WebPdfLinkJS[];
 
     /**
-     * Determines that links are received.
+     * Returns a value indicating whether links are received.
      */
     isLinksReceived(): boolean;
-
-    /**
-     * Determines that information about transformation from page space to the image space is received.
-     */
-    isTransformFromPageSpaceToImageSpaceReceived(): boolean;
 
     /**
      * Returns the transformation matrix from page space to the image space.
@@ -1181,11 +1245,23 @@ declare module Vintasoft.Imaging.Pdf {
     getTrasformFromPageSpaceToImageSpace(resolution: Vintasoft.Shared.WebResolutionJS): Vintasoft.Imaging.Utils.WebMatrixJS;
 
     /**
+     * Returns a value indicating whether information about transformation from page space to the image space is received.
+     */
+    isTransformFromPageSpaceToImageSpaceReceived(): boolean;
+
+    /**
      * Sends an asynchronous request for getting all image resources associated with this PDF page.
      * @param successFunc Function that will be executed if request is executed successfully. Here is function prototype "function __success(data)".<br/> The data parameter has the following properties:<br/> <ul> <li>contentImages (object): Array of [see="WebContentImageJS"] objects that defines all image resources associated with this PDF page.</li> </ul>
      * @param errorFunc Function that will be executed if request is failed. Here is function prototype "function __error(data)".<br/> The data parameter can be:<br/> <ol> <li>An object with following properties:<br/> <ul> <li>errorMessage (string): Error message.</li> <li>blocked (boolean): Indicates that the requested action is blocked by another request.</li> </ul> if exception is catched inside web service. </li> <li>Otherwise, jqXHR object.</li> </ol>
      */
     requestContentImages(successFunc: Function, errorFunc: Function): void;
+
+    /**
+     * Sends an asynchronous request for getting all text blocks, which are located on PDF page.
+     * @param successFunc Function that will be executed if request is executed successfully. Here is function prototype "function __success(data)".<br/> The data parameter has the following properties:<br/> <ul> <li>textBlocks (object): Array of [see="WebPdfTextBlockJS"] objects that defines all text blocks, which are located on PDF page.</li> </ul>
+     * @param errorFunc Function that will be executed if request is failed. Here is function prototype "function __error(data)".<br/> The data parameter can be:<br/> <ol> <li>An object with following properties:<br/> <ul> <li>errorMessage (string): Error message.</li> <li>blocked (boolean): Indicates that the requested action is blocked by another request.</li> </ul> if exception is catched inside web service. </li> <li>Otherwise, jqXHR object.</li> </ol>
+     */
+    requestTextBlocks(successFunc: Function, errorFunc: Function): void;
 
     /**
      * Sends an asynchronous request for getting all links associated with this PDF page.
@@ -1202,11 +1278,19 @@ declare module Vintasoft.Imaging.Pdf {
     requestPageInfo(successFunc: Function, errorFunc: Function): void;
 
     /**
-     * Converts points from image coordinate space to PDF page coordinate space taking into account the image resolution.
+     * Converts points from image coordinate space to the PDF page coordinate space taking into account the image resolution.
      * @param points Points, in the image's coordinate space, to convert.
      * @param resolution Image resolution.
      */
     pointsFromPageSpaceToImageSpace(points: object, resolution: object): void;
+
+    /**
+     * Sends an asynchronous request to save changes in text blocks on PDF page.
+     * @param textBlocks An array of text blocks (instances of WebPdfTextBlockJS class), which should be updated on PDF page.
+     * @param successFunc Function that will be executed if request is executed successfully.
+     * @param errorFunc Function that will be executed if request is failed. Here is function prototype "function __error(data)".<br/> The data parameter can be:<br/> <ol> <li>An object with following properties:<br/> <ul> <li>errorMessage (string): Error message.</li> <li>blocked (boolean): Indicates that the requested action is blocked by another request.</li> </ul> if exception is catched inside web service. </li> <li>Otherwise, jqXHR object.</li> </ol>
+     */
+    saveChangesInTextBlocks(textBlocks: Vintasoft.Imaging.Pdf.WebPdfTextBlockJS[], successFunc: Function, errorFunc: Function): void;
 
   }
 
@@ -2767,6 +2851,17 @@ declare module Vintasoft.Imaging.Pdf.UI {
     set_ShowRedactionMenu(value: boolean): void;
 
     /**
+     * Gets a value indicating whether web PDF document editor should show the "Editor" menu.
+     */
+    get_ShowContentEditorMenu(): boolean;
+
+    /**
+     * Sets a value indicating whether web PDF document editor should show the "Editor" menu.
+     * @param value A value indicating whether web PDF document editor should show the "Editor" menu.
+     */
+    set_ShowContentEditorMenu(value: boolean): void;
+
+    /**
      * Gets a value indicating whether web PDF document editor should show the "Text selection" side panel.
      */
     get_ShowTextSelectionSidePanel(): boolean;
@@ -3299,6 +3394,240 @@ declare module Vintasoft.Imaging.Pdf.UI.VisualTools {
      * Resets the visual tool.
      */
     reset(): void;
+
+  }
+
+  /**
+   * Represents a visual tool that allows to edit text content on PDF page.
+   */
+  class WebPdfContentEditorToolJS extends Vintasoft.Imaging.Pdf.UI.VisualTools.WebPdfVisualToolJS {
+
+    // CONTSRUCTORS
+
+    /**
+     * Initializes a new instance of the [see= "WebPdfContentEditorToolJS"] class.
+     */
+    constructor();
+
+    // PROPERTIES
+
+    /**
+     * Gets the fill color for text block.
+     */
+    get_TextBlockFillColor(): string;
+
+    /**
+     * Sets the fill color for text block.
+     * @param value The fill color for text block. Default value is "rgba(0,0,0,0.0)".
+     */
+    set_TextBlockFillColor(value: string): void;
+
+    /**
+     * Gets the border color for text block.
+     */
+    get_TextBlockBorderColor(): string;
+
+    /**
+     * Sets the border color for text block.
+     * @param value Border color for text block. Default value is "rgba(0,0,255,0.7)".
+     */
+    set_TextBlockBorderColor(value: string): void;
+
+    /**
+     * Gets the fill color for selected text block.
+     */
+    get_SelectedTextBlockFillColor(): string;
+
+    /**
+     * Sets the fill color for selected text block.
+     * @param value The fill color for selected text block. Default value is "rgba(0,0,0,0.0)".
+     */
+    set_SelectedTextBlockFillColor(value: string): void;
+
+    /**
+     * Gets the border color for selected text block.
+     */
+    get_SelectedTextBlockBorderColor(): string;
+
+    /**
+     * Sets the border color for selected text block.
+     * @param value Border color for selected text block. Default value is "rgba(0,0,255,0.7)".
+     */
+    set_SelectedTextBlockBorderColor(value: string): void;
+
+    /**
+     * Gets the value indicating whether selected text block can be resized.
+     */
+    get_CanResizeSelectedText(): boolean;
+
+    /**
+     * Sets the value indicating whether selected text block can be resized.
+     * @param value True - visual tool allows to resize the selected text block; False - visual tool does not allow to resize the selected text block. Default value is True.
+     */
+    set_CanResizeSelectedText(value: boolean): void;
+
+    /**
+     * Gets the fill color for resize point for selected text block.
+     */
+    get_SelectedTextBlockResizePointFillColor(): string;
+
+    /**
+     * Sets the fill color for resize point for selected text block.
+     * @param value The fill color for resize point for selected text block. Default value is "rgba(255,0,0,1)".
+     */
+    set_SelectedTextBlockResizePointFillColor(value: string): void;
+
+    /**
+     * Gets the border color for resize point for selected text block.
+     */
+    get_SelectedTextBlockResizePointBorderColor(): string;
+
+    /**
+     * Sets the border color for resize point for selected text block.
+     * @param value Border color for resize point for selected text block. Default value is "rgba(255,0,0,1)".
+     */
+    set_SelectedTextBlockResizePointBorderColor(value: string): void;
+
+    /**
+     * Gets the radius for resize point for selected text block.
+     */
+    get_SelectedTextBlockResizePointRadius(): number;
+
+    /**
+     * Sets the radius for resize point for selected text block.
+     * @param value Radius for resize point for selected text block. The minimum value is 0, the maximum value is 20. Default value is 5.
+     */
+    set_SelectedTextBlockResizePointRadius(value: string): void;
+
+    /**
+     * Gets the selected text block.
+     */
+    get_SelectedTextBlock(): Vintasoft.Imaging.Pdf.WebPdfTextBlockJS;
+
+    /**
+     * Sets the selected text block.
+     * @param value Selected text block.
+     */
+    set_SelectedTextBlock(value: Vintasoft.Imaging.Pdf.WebPdfTextBlockJS): void;
+
+    /**
+     * Gets a value indicating whether undo/redo is enabled.
+     */
+    get_IsUndoEnabled(): boolean;
+
+    /**
+     * Sets a value indicating whether undo/redo is enabled.
+     * @param value True - is undo/redo enabled; False - is undo/redo not enabled. Default value is True.
+     */
+    set_IsUndoEnabled(value: boolean): void;
+
+    // METHODS
+
+    /**
+     * Returns the text blocks of visual tool.
+     */
+    getTextBlocks(): Vintasoft.Imaging.Pdf.WebPdfTextBlockJS[];
+
+    /**
+     * Resets the visual tool.
+     */
+    reset(): void;
+
+    /**
+     * Returns the drawing box of visual tool.
+     */
+    getDrawingBox(): object;
+
+    /**
+     * Finds text block (WebPdfTextBlockJS object) on PDF page.
+     * @param location Point in the coordinate space of PDF page.
+     */
+    findTextBlockInPageSpace(location: object): Vintasoft.Imaging.Pdf.WebPdfTextBlockJS;
+
+    /**
+     * Finds text block (WebPdfTextBlockJS object) on PDF page.
+     * @param location Point in the coordinate space of viewer.
+     */
+    findTextBlockInViewerSpace(location: object): Vintasoft.Imaging.Pdf.WebPdfTextBlockJS;
+
+    /**
+     * Adds new text block to PDF page.
+     */
+    addNewTextBlock(): void;
+
+    /**
+     * Copies text block from PDF page.
+     */
+    copyTextBlock(): void;
+
+    /**
+     * Pastes previously copied text block to a PDF page.
+     */
+    pasteTextBlock(): void;
+
+    /**
+     * Deletes the selected text block from PDF page.
+     */
+    deleteSelectedTextBlock(): void;
+
+    /**
+     * Changes the font family for selected text.
+     * @param fontFamily The font family.
+     */
+    changeFontFamilyForSelectedText(fontFamily: string): void;
+
+    /**
+     * Changes the font size, in points, for selected text.
+     * @param fontSize The font size in points.
+     */
+    changeFontSizeForSelectedText(fontSize: number): void;
+
+    /**
+     * Changes the font color for selected text.
+     * @param color The font color.
+     */
+    changeFontColorForSelectedText(color: string): void;
+
+    /**
+     * Applies the bold style to the selected text.
+     */
+    applyBoldStyleForSelectedText(): boolean;
+
+    /**
+     * Applies the italic style to the selected text.
+     */
+    applyItalicStyleForSelectedText(): boolean;
+
+    /**
+     * Applies the underline style to the selected text.
+     */
+    applyUnderlineStyleForSelectedText(): boolean;
+
+    /**
+     * Applies the strikethrough style to the selected text.
+     */
+    applyStrikethroughStyleForSelectedText(): boolean;
+
+    /**
+     * Changes the horizontal alignment for selected text.
+     * @param horizontalAlignment The horizontal alignment: 0 - left, 1 - center, 2 - right, 3 - justify.
+     */
+    changeHorizontalAlignmentForSelectedText(horizontalAlignment: number): void;
+
+    /**
+     * Saves changes in edited content.
+     */
+    saveChanges(): void;
+
+    /**
+     * Undoes changes.
+     */
+    undoChanges(): void;
+
+    /**
+     * Redoes changes.
+     */
+    redoChanges(): void;
 
   }
 
