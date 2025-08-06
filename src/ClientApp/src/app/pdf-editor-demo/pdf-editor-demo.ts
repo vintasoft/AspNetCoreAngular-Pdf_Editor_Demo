@@ -84,7 +84,7 @@ export class PdfEditorDemoComponent {
       imageViewer1.set_ProgressImage(progressImage);
 
       // get the visual tool, which allows to select text
-      let visualTool: Vintasoft.Imaging.UI.VisualTools.WebVisualToolJS = this._pdfDocumentEditor.getVisualToolById("DocumentNavigationTool,TextSelectionTool");
+      let visualTool: Vintasoft.Imaging.UI.VisualTools.WebVisualToolJS = this._pdfDocumentEditor.getVisualToolById("DocumentNavigationTool,TextSelectionTool,PanTool,ZoomTool");
       // set the visual tool as active visual tool in image viewer
       this._pdfDocumentEditor.set_CurrentVisualTool(visualTool);
 
