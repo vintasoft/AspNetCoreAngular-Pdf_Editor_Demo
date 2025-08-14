@@ -48,6 +48,9 @@ export class PdfEditorDemoComponent {
       Vintasoft.Shared.WebServiceJS.defaultImageService = new Vintasoft.Shared.WebServiceControllerJS("vintasoft/api/MyVintasoftImageApi");
       Vintasoft.Shared.WebServiceJS.defaultPdfService = new Vintasoft.Shared.WebServiceControllerJS("vintasoft/api/MyVintasoftPdfApi");
 
+      // register new UI elements
+      this.__registerNewUiElements();
+
       // create the PDF document editor settings
       let pdfDocumentEditorSettings: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlSettingsJS = new Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlSettingsJS("pdfDocumentEditorContainer", "pdfDocumentEditor");
 
@@ -83,8 +86,20 @@ export class PdfEditorDemoComponent {
       // specify that the image viewer must use the progress image for indicating the image loading progress
       imageViewer1.set_ProgressImage(progressImage);
 
+      // names of visual tools in composite visual tool
+      let visualToolNames: string = "DocumentNavigationTool,TextSelectionTool,PanTool";
+      // if touch device is used
+      if (this.__isTouchDevice()) {
+          // get zoom tool from document viewer
+          let zoomTool: Vintasoft.Imaging.UI.VisualTools.WebVisualToolJS = this._pdfDocumentEditor.getVisualToolById('ZoomTool');
+          // specify that zoom tool should not disable context menu
+          zoomTool.set_DisableContextMenu(false);
+
+          // add name of zoom tool to the names of visual tools of composite visual tool
+          visualToolNames = visualToolNames + ",ZoomTool";
+      }
       // get the visual tool, which allows to select text
-      let visualTool: Vintasoft.Imaging.UI.VisualTools.WebVisualToolJS = this._pdfDocumentEditor.getVisualToolById("DocumentNavigationTool,TextSelectionTool,PanTool,ZoomTool");
+      let visualTool: Vintasoft.Imaging.UI.VisualTools.WebVisualToolJS = this._pdfDocumentEditor.getVisualToolById(visualToolNames);
       // set the visual tool as active visual tool in image viewer
       this._pdfDocumentEditor.set_CurrentVisualTool(visualTool);
 
@@ -96,12 +111,63 @@ export class PdfEditorDemoComponent {
 
 
 
+  // === Visual Tools ===
+
+  /**
+   * Creates UI button for activating the visual tool, which allows to pan images in image viewer.
+   */
+  __createPanToolButton() {
+      // if touch device is used
+      if (_pdfEditorDemoComponent.__isTouchDevice()) {
+          return new Vintasoft.Imaging.UI.UIElements.WebUiVisualToolButtonJS({
+              cssClass: "vsdv-tools-panButton",
+              title: "Document navigation, Text selection, Pan, Zoom",
+              localizationId: "panToolButton"
+          }, "DocumentNavigationTool,TextSelectionTool,PanTool,ZoomTool");
+      }
+      else {
+          return new Vintasoft.Imaging.UI.UIElements.WebUiVisualToolButtonJS({
+              cssClass: "vsdv-tools-panButton",
+              title: "Document navigation, Text selection, Pan",
+              localizationId: "panToolButton"
+          }, "DocumentNavigationTool,TextSelectionTool,PanTool");
+      }
+  }
+
+  /**
+   * Initializes visual tools.
+   * @param pdfDocumentEditor The PDF document editor.
+   */
+  __initializeVisualTools(pdfDocumentEditor: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlJS) {
+    // get navigation tool
+    let documentNavigationTool: Vintasoft.Imaging.UI.VisualTools.WebDocumentNavigationToolJS = pdfDocumentEditor.getVisualToolById("DocumentNavigationTool") as Vintasoft.Imaging.UI.VisualTools.WebDocumentNavigationToolJS;
+    // create navigation action executor
+    let nagivationActionExecutor: Vintasoft.Imaging.WebNavigationActionExecutorJS = new Vintasoft.Imaging.WebNavigationActionExecutorJS();
+    // create URI action executor
+    let uriActionExecutor: WebUriActionExecutor = new WebUriActionExecutor();
+    // create composite action executor
+    let compositeActionExecutor: Vintasoft.Imaging.WebPageContentActionCompositeExecutorJS = new Vintasoft.Imaging.WebPageContentActionCompositeExecutorJS([uriActionExecutor, nagivationActionExecutor]);
+
+    // use composite action executer in document navigation tool
+    documentNavigationTool.set_ActionExecutor(compositeActionExecutor);
+  }
+
+
+
   // === Init UI ===
 
   /**
- * Initializes side panel of document viewer.
- * @param pdfDocumentEditorSettings Settings of PDF document editor.
- */
+   * Registers custom UI elements in "WebUiElementsFactoryJS".
+   */
+  __registerNewUiElements() {
+      // register the "Pan" button in web UI elements factory
+      Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("panToolButton", _pdfEditorDemoComponent.__createPanToolButton);
+  }
+
+  /**
+   * Initializes side panel of document viewer.
+   * @param pdfDocumentEditorSettings Settings of PDF document editor.
+   */
   __initSidePanel(pdfDocumentEditorSettings: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlSettingsJS) {
     // get items of document viewer
     let items: Vintasoft.Imaging.UI.UIElements.WebUiElementCollectionJS = pdfDocumentEditorSettings.get_Items();
@@ -158,28 +224,6 @@ export class PdfEditorDemoComponent {
       thumbnailViewer.set_ThumbnailPadding(padding);
       thumbnailViewer.set_DisplayThumbnailCaption(true);
     }
-  }
-
-
-
-  // === Visual Tools ===
-
-  /**
-   * Initializes visual tools.
-   * @param pdfDocumentEditor The PDF document editor.
-   */
-  __initializeVisualTools(pdfDocumentEditor: Vintasoft.Imaging.Pdf.UI.WebPdfDocumentEditorControlJS) {
-    // get navigation tool
-    let documentNavigationTool: Vintasoft.Imaging.UI.VisualTools.WebDocumentNavigationToolJS = pdfDocumentEditor.getVisualToolById("DocumentNavigationTool") as Vintasoft.Imaging.UI.VisualTools.WebDocumentNavigationToolJS;
-    // create navigation action executor
-    let nagivationActionExecutor: Vintasoft.Imaging.WebNavigationActionExecutorJS = new Vintasoft.Imaging.WebNavigationActionExecutorJS();
-    // create URI action executor
-    let uriActionExecutor: WebUriActionExecutor = new WebUriActionExecutor();
-    // create composite action executor
-    let compositeActionExecutor: Vintasoft.Imaging.WebPageContentActionCompositeExecutorJS = new Vintasoft.Imaging.WebPageContentActionCompositeExecutorJS([uriActionExecutor, nagivationActionExecutor]);
-
-    // use composite action executer in document navigation tool
-    documentNavigationTool.set_ActionExecutor(compositeActionExecutor);
   }
 
 
@@ -267,6 +311,13 @@ export class PdfEditorDemoComponent {
     let dlg: ErrorMessageDialog = new ErrorMessageDialog(_pdfEditorDemoComponent.modalService);
     dlg.errorData = data;
     dlg.open();
+  }
+
+  /**
+   Returns a value indicating whether touch device is used.
+  */
+  __isTouchDevice() {
+      return navigator.maxTouchPoints > 0;
   }
 
 }
