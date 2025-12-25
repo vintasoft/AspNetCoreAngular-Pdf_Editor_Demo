@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-using Vintasoft.Data;
+﻿using Vintasoft.Data;
 using Vintasoft.Imaging.Codecs.Decoders;
 using Vintasoft.Imaging.Web.Services;
 using Vintasoft.Shared.Web;

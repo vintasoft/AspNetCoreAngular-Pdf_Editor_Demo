@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-
-using Vintasoft.Imaging.Pdf.AspNetCore.ApiControllers;
+﻿using Vintasoft.Imaging.Pdf.AspNetCore.ApiControllers;
 
 namespace AspNetCoreAngularPdfEditorDemo.Controllers
 {
