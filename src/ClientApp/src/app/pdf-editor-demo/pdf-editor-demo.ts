@@ -86,23 +86,6 @@ export class PdfEditorDemoComponent {
       // specify that the image viewer must use the progress image for indicating the image loading progress
       imageViewer1.set_ProgressImage(progressImage);
 
-      // names of visual tools in composite visual tool
-      let visualToolNames: string = "DocumentNavigationTool,TextSelectionTool,PanTool";
-      // if touch device is used
-      if (this.__isTouchDevice()) {
-          // get zoom tool from document viewer
-          let zoomTool: Vintasoft.Imaging.UI.VisualTools.WebVisualToolJS = this._pdfDocumentEditor.getVisualToolById('ZoomTool');
-          // specify that zoom tool should not disable context menu
-          zoomTool.set_DisableContextMenu(false);
-
-          // add name of zoom tool to the names of visual tools of composite visual tool
-          visualToolNames = visualToolNames + ",ZoomTool";
-      }
-      // get the visual tool, which allows to select text
-      let visualTool: Vintasoft.Imaging.UI.VisualTools.WebVisualToolJS = this._pdfDocumentEditor.getVisualToolById(visualToolNames);
-      // set the visual tool as active visual tool in image viewer
-      this._pdfDocumentEditor.set_CurrentVisualTool(visualTool);
-
       // copy the default file to the uploaded image files directory and open the file
       this._openPdfFileHelper = new OpenPdfFileHelper(this.modalService, this._pdfDocumentEditor, this.__showErrorMessage);
       this._openPdfFileHelper.openDefaultPdfFile();
@@ -112,27 +95,6 @@ export class PdfEditorDemoComponent {
 
 
   // === Visual Tools ===
-
-  /**
-   * Creates UI button for activating the visual tool, which allows to pan images in image viewer.
-   */
-  __createPanToolButton() {
-      // if touch device is used
-      if (_pdfEditorDemoComponent.__isTouchDevice()) {
-          return new Vintasoft.Imaging.UI.UIElements.WebUiVisualToolButtonJS({
-              cssClass: "vsdv-tools-panButton",
-              title: "Document navigation, Text selection, Pan, Zoom",
-              localizationId: "panToolButton"
-          }, "DocumentNavigationTool,TextSelectionTool,PanTool,ZoomTool");
-      }
-      else {
-          return new Vintasoft.Imaging.UI.UIElements.WebUiVisualToolButtonJS({
-              cssClass: "vsdv-tools-panButton",
-              title: "Document navigation, Text selection, Pan",
-              localizationId: "panToolButton"
-          }, "DocumentNavigationTool,TextSelectionTool,PanTool");
-      }
-  }
 
   /**
    * Initializes visual tools.
@@ -160,8 +122,6 @@ export class PdfEditorDemoComponent {
    * Registers custom UI elements in "WebUiElementsFactoryJS".
    */
   __registerNewUiElements() {
-      // register the "Pan" button in web UI elements factory
-      Vintasoft.Imaging.UI.UIElements.WebUiElementsFactoryJS.registerElement("panToolButton", _pdfEditorDemoComponent.__createPanToolButton);
   }
 
   /**
